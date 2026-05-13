@@ -15,6 +15,10 @@ namespace Chapeau.Controllers
 
         public IActionResult Index()
         {
+            return RedirectToAction("Login", "login");
+        }
+        public IActionResult Home()
+        {
             return View();
         }
 
