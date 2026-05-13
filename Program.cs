@@ -1,3 +1,5 @@
+using Chapeau.Repositories;
+
 namespace Chapeau
 {
     public class Program
@@ -8,6 +10,8 @@ namespace Chapeau
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<DBDummyRep>();
+
 
             var app = builder.Build();
 
