@@ -11,6 +11,7 @@ namespace Chapeau
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<DBDummyRep>();
+            builder.Services.AddSingleton<IMenusRepository, DbMenusRepository>();
 
 
             var app = builder.Build();

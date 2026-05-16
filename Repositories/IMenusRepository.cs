@@ -2,7 +2,7 @@ using Chapeau.Models;
 
 namespace Chapeau.Repositories;
 
-public interface MenuRepository
+public interface IMenusRepository
 {
     List<MenuItem> GetAll();
     MenuItem? GetById(int menuItemId);
