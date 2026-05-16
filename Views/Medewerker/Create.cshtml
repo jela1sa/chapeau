@@ -1,0 +1,37 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Chapeau.Models.Medewerker
+@{
+	ViewData["Title"] = "Create Medewerker";
+}
+
+<h4>New medewerker</h4>
+<form action="/Medewerker/Create" method="POST">
+	<div class="form-group py-2">
+		<label for="bediening_ID">bediening_ID:</label>
+		<input type="text" id="bediening_ID" name="bediening_ID" class="form-control" required value="@Model?.bediening_ID" />
+	</div>
+
+	<div class="form-group py-2">
+		<label for="naam">naam:</label>
+		<input type="text" id="naam" name="naam" class="form-control" required value="@Model?.naam" />
+	</div>
+
+	<div class="form-group py-2">
+		<label for="rol">rol:</label>
+		<input type="text" id="rol" name="rol" class="form-control" required value="@Model?.rol" />
+	</div>
+
+	<div class="form-group py-2">
+		<label for="gebruikersnaam">gebruikersnaam:</label>
+		<input type="text" id="gebruikersnaam" name="gebruikersnaam" class="form-control" required value="@Model?.gebruikersnaam" />
+	</div>
+
+	<div class="form-group py-2">
+		<label for="wachtwoord">wachtwoord:</label>
+		<input type="text" id="wachtwoord" name="wachtwoord" class="form-control" required value="@Model?.wachtwoord" />
+	</div>
+
+	<button type="submit" class="btn btn-primary">Add</button>
+</form>
