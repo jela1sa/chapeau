@@ -1,4 +1,6 @@
 using Chapeau.Repositories;
+using Chapeau.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Chapeau
 {
@@ -11,7 +13,25 @@ namespace Chapeau
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<DBDummyRep>();
+            builder.Services.AddSingleton<IMedewerkerRepository, DBMedewerkerRepository>();
+            builder.Services.AddSingleton<IUsersService, UsersService>();
+            builder.Services.AddScoped<ITablesRepository, DBTablesRepository>();
 
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+
+            });
+
+            builder.Services.AddAuthentication(
+                CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Login/Login";
+                    options.AccessDeniedPath = "/Login/AccessDenied";
+                });
 
             var app = builder.Build();
 
@@ -27,6 +47,11 @@ namespace Chapeau
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseAuthorization();
 
