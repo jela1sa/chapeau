@@ -1,8 +1,10 @@
 ﻿using Chapeau.Repositorys;
 using Chapeau.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace Chapeau.Controllers
 {
+    [Authorize]
     public class PaymentController : Controller
     {
         private readonly IOrderService _service;
