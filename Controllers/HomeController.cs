@@ -1,5 +1,6 @@
 using Chapeau.Models;
 using Chapeau.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -24,6 +25,12 @@ namespace Chapeau.Controllers
         }
 
         public IActionResult Index()
+        {
+            return RedirectToAction("Login", "login");
+        }
+
+        [Authorize]
+        public IActionResult Home()
         {
             return View();
         }

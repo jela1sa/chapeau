@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	ViewData["Title"] = "Login";
+}
+@{
+if (ViewBag.ErrorMessage != null)
+{
+	<div class="alert alert-danger" role="alert">@ViewBag.ErrorMessage</div>
+}
+<h1>Login</h1>
+} 
+
+<form action="/Login/Login" method="post">
+	<div class="form-group">
+		<label for="gebruikersnaam">Username</label>
+		<input type="text" name="gebruikersnaam" class="form-control required" />
+	</div>
+
+	<div class="form-group">
+		<label for="wachtwoord">password</label>
+		<input type="password" name="wachtwoord" class="form-control" required/>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Login</button>
+</form>
+@*button to log off will redirect to this screen*@
