@@ -21,6 +21,11 @@ namespace Chapeau.Models
 
         public virtual MenuItem MenuItem { get; set; }
 
+        public OrderItem()
+        {
+
+        }
+
 
         public OrderItem(int orderItem_id, int bestelling_id, int item_id, int aantal, Order bestelling, MenuItem menuItem)
         {
