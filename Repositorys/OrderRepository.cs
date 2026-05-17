@@ -86,7 +86,7 @@ namespace Chapeau.Repositorys
                                 null
                             );
 
-                            OrderItem orderItem = new OrderItem
+                            OrderItem orderItem = new OrderItem()
                             { 
                                 OrderItem_id = Convert.ToInt32(reader["order_item_id"]),
                                 Aantal = Convert.ToInt32(reader["aantal"]),
