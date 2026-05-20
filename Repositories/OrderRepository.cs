@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Chapeau.Models;
 
 namespace Chapeau.Repositorys
@@ -71,7 +72,7 @@ namespace Chapeau.Repositorys
                                     BedieningId = Convert.ToInt32(reader["bediening_id"]),
                                     DatumTijd = Convert.ToDateTime(reader["datum_tijd"]),
                                     Status = reader["status"].ToString(),
-                                    TijdstipOpgenomen = Convert.ToDateTime(reader["tijdstip_opgegeven"]),
+                                    TijdstipOpgenomen = TimeOnly.FromDateTime(Convert.ToDateTime(reader["tijdstip_opgegeven"])),
                                     OrderItems = orderItems
                                 };
                             }
