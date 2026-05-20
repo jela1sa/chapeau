@@ -9,4 +9,5 @@ public interface IMenusRepository
     void Add(MenuItem menuItem);
     void Update(MenuItem menuItem);
     void Delete(MenuItem menuItem);
+    List<MenuItem> GetFilteredMenuItems(string cardFilter, string categoryFilter);
 }

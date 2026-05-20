@@ -47,6 +47,45 @@ public class DbMenusRepository : IMenusRepository
 
         return menuItems;
     }
+    
+    public List<MenuItem> GetFilteredMenuItems(string cardFilter, string categoryFilter)
+    {
+        string query = @"
+        SELECT *
+        FROM MenuItem
+        WHERE
+        (
+            @cardFilter = 'all'
+            OR Categorie LIKE '%' + @cardFilter + '%'
+        )
+        AND
+        (
+            @categoryFilter = 'all'
+            OR Naam LIKE '%' + @categoryFilter + '%'
+        )";
+
+        List<MenuItem> menuItems = new List<MenuItem>();
+
+        using (SqlConnection conn = new SqlConnection(_connectionString))
+        {
+            SqlCommand cmd = new SqlCommand(query, conn);
+
+            cmd.Parameters.AddWithValue("@cardFilter", cardFilter);
+            cmd.Parameters.AddWithValue("@categoryFilter", categoryFilter);
+
+            conn.Open();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                MenuItem menuItem = readMenuItem(reader);
+                menuItems.Add(menuItem);
+            }
+        }
+
+        return menuItems;
+    }
 
     public MenuItem? GetById(int menuItemId)
     {

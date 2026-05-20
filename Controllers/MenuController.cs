@@ -14,8 +14,12 @@ public class MenuController : Controller
     }
 
     [HttpGet]
-    public List<MenuItem> Menu()
+    public IActionResult Index(string cardFilter = "all",
+        string categoryFilter = "all")
     {
-        return _menusRepository.GetAll();
+        List<MenuItem> items = _menusRepository
+            .GetFilteredMenuItems(cardFilter, categoryFilter);
+
+        return View(items);
     }
 }

@@ -9,11 +9,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="066e1fad-9e22-45c0-b8e1-5265fc710060" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Views/Menu/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Chapeau/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Chapeau/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controllers/MenuController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/MenuController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/MenuItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/MenuItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Repositories/MenuRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/IMenusRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/DbMenusRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/DbMenusRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/IMenusRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/IMenusRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Views/Home/Menu.cshtml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +51,7 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -152,12 +154,16 @@
       <workItem from="1778964766032" duration="17000" />
       <workItem from="1778964794473" duration="25000" />
       <workItem from="1778964941889" duration="62000" />
+      <workItem from="1779275392222" duration="1319000" />
+      <workItem from="1779276737146" duration="7129000" />
+      <workItem from="1779306718579" duration="2407000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

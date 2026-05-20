@@ -1,0 +1,50 @@
+@model IEnumerable<MenuItem>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Menu";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+ 
+</head>
+<body>
+<title>Menu</title>
+    
+<div class="btn-group mb-3">
+
+    <a class="btn btn-primary" href="/Menu?cardFilter=all&categoryFilter=all">Alles</a>
+    <a class="btn btn-primary" href="/Menu?cardFilter=dinner&categoryFilter=all">Diner</a>
+    <a class="btn btn-primary" href="/Menu?cardFilter=lunch&categoryFilter=all">Lunch</a>
+    <a class="btn btn-primary" href="/Menu?cardFilter=drank&categoryFilter=all">Drinks</a>
+
+</div>
+
+<div class="btn-group mb-3">
+
+    <a class="btn btn-outline-secondary" href="/Menu?cardFilter=all&categoryFilter=hoofdgerecht">Hoofdgerecht</a>
+    <a class="btn btn-outline-secondary" href="/Menu?cardFilter=all&categoryFilter=nagerecht">Nagerecht</a>
+    <a class="btn btn-outline-secondary" href="/Menu?cardFilter=all&categoryFilter=tussengerecht">Tussengerecht</a>
+
+</div>
+    
+<div class="d-flex flex-wrap gap-3">
+    @{
+        foreach (var menuItem in Model)
+        {
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@menuItem.Naam</h5>
+                    <p class="card-text">@menuItem.Prijs</p>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+</body>
+</html>
