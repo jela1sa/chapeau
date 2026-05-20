@@ -1,10 +1,10 @@
 ﻿namespace Chapeau.ViewModels
 {
-    public class PaymentViewModel
+    public class BetalingViewModel
     {
-        public int TableId { get; set; }
+        public int Tafel_ID { get; set; }
 
-        public List<PaymentItemViewModel> Items { get; set; }
+        public List<BetalingItemViewModel> Items { get; set; }
 
         public decimal TotalAmount { get; set; }
 
@@ -13,7 +13,7 @@
         public decimal HighVatTotal { get; set; }
     }
 
-    public class PaymentItemViewModel
+    public class BetalingItemViewModel
     {
         public string Name { get; set; }
 

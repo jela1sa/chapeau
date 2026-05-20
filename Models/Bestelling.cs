@@ -3,6 +3,7 @@
     public class Bestelling
     {
         public int Bestelling_ID { get; set; }
+        public int Bediending_ID { get; set; }
         public int Tafel_ID { get; set; }         
         public string TafelNummer { get; set; }
         public  int Bediening_ID { get; set; }
@@ -10,6 +11,9 @@
         public string Bestelling_Status { get; set; }
         public TimeSpan Tijdstip_Opgegeven { get; set; }
         public int Wachttijd { get; set; }
+        public virtual ICollection<BestellingItem> BestellingItems { get; set; }
+        public TimeOnly Tijdstip_Opgenomen { get; set; } = new TimeOnly();
+        
 
         public Bestelling()
         {

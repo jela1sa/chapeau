@@ -7,17 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace Chapeau.Controllers
 {
     [Authorize]
-    public class TableController : Controller
+    public class TafelController : Controller
     {
-        private readonly ITablesRepository _tablesRepository;
-        public TableController(ITablesRepository tablesRepository)
+        private readonly ITafelRepository _TafelsRepository;
+        public TafelController(ITafelRepository TafelsRepository)
         {
-            _tablesRepository = tablesRepository;
+            _TafelsRepository = TafelsRepository;
         }
         public IActionResult Index()
         {
-            List<Table> tables = _tablesRepository.GetAll();
-            return View(tables);
+            List<Tafel> Tafels = _TafelsRepository.GetAll();
+            return View(Tafels);
         }
 
         /*public IActionResult Edit()
@@ -30,22 +30,22 @@ namespace Chapeau.Controllers
             {
                 return NotFound();
             }
-            Table? table = _tablesRepository.GetById((int)id);
-            return View(table);
+            Tafel? Tafel = _TafelsRepository.GetById((int)id);
+            return View(Tafel);
         }
         [HttpPost]
-        public ActionResult Edit(Table table)
+        public ActionResult Edit(Tafel Tafel)
         {
             try
             {
                 //update user via repository
-                _tablesRepository.Update(table);
+                _TafelsRepository.Update(Tafel);
                 //go back to users list (via index)
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                return View(table);
+                return View(Tafel);
             }
         }
     }

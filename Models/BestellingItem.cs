@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Chapeau.Models
 {
-    public class OrderItem
+    public class BestellingItem
     {
         
 
         [Key]
-        public int OrderItem_id  { get; set; }
+        public int BestellingItem_id  { get; set; }
 
         public int Bestelling_id { get; set; }
 
@@ -17,19 +17,19 @@ namespace Chapeau.Models
         public int Aantal { get; set; }
 
       
-        public virtual Order Bestelling { get; set; }
+        public virtual Bestelling Bestelling { get; set; }
 
         public virtual MenuItem MenuItem { get; set; }
 
-        public OrderItem()
+        public BestellingItem()
         {
 
         }
 
 
-        public OrderItem(int orderItem_id, int bestelling_id, int item_id, int aantal, Order bestelling, MenuItem menuItem)
+        public BestellingItem(int BestellingItem_id, int bestelling_id, int item_id, int aantal, Bestelling bestelling, MenuItem menuItem)
         {
-            OrderItem_id = orderItem_id;
+            BestellingItem_id = BestellingItem_id;
             Bestelling_id = bestelling_id;
             Item_id = item_id;
             Aantal = aantal;

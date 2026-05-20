@@ -19,10 +19,10 @@ namespace Chapeau.Models
 
         public decimal Btw_tarief { get; set; }
 
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual ICollection<BestellingItem> BestellingItems { get; set; }
 
 
-        public MenuItem(int item_id, string naam, string beschrijving, decimal prijs, string categorie, decimal btw_tarief, ICollection<OrderItem> orderItems)
+        public MenuItem(int item_id, string naam, string beschrijving, decimal prijs, string categorie, decimal btw_tarief, ICollection<BestellingItem> BestellingItems)
         {
             Item_id = item_id;
             Naam = naam;
@@ -30,7 +30,7 @@ namespace Chapeau.Models
             Prijs = prijs;
             Categorie = categorie;
             Btw_tarief = btw_tarief;
-            OrderItems = orderItems;
+            BestellingItems = BestellingItems;
         }
     }
 

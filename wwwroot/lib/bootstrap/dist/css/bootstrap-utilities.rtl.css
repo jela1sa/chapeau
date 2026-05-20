@@ -302,16 +302,16 @@
   display: grid !important;
 }
 
-.d-table {
-  display: table !important;
+.d-Tafel {
+  display: Tafel !important;
 }
 
-.d-table-row {
-  display: table-row !important;
+.d-Tafel-row {
+  display: Tafel-row !important;
 }
 
-.d-table-cell {
-  display: table-cell !important;
+.d-Tafel-cell {
+  display: Tafel-cell !important;
 }
 
 .d-flex {
@@ -1570,16 +1570,16 @@
     display: grid !important;
   }
 
-  .d-sm-table {
-    display: table !important;
+  .d-sm-Tafel {
+    display: Tafel !important;
   }
 
-  .d-sm-table-row {
-    display: table-row !important;
+  .d-sm-Tafel-row {
+    display: Tafel-row !important;
   }
 
-  .d-sm-table-cell {
-    display: table-cell !important;
+  .d-sm-Tafel-cell {
+    display: Tafel-cell !important;
   }
 
   .d-sm-flex {
@@ -2221,16 +2221,16 @@
     display: grid !important;
   }
 
-  .d-md-table {
-    display: table !important;
+  .d-md-Tafel {
+    display: Tafel !important;
   }
 
-  .d-md-table-row {
-    display: table-row !important;
+  .d-md-Tafel-row {
+    display: Tafel-row !important;
   }
 
-  .d-md-table-cell {
-    display: table-cell !important;
+  .d-md-Tafel-cell {
+    display: Tafel-cell !important;
   }
 
   .d-md-flex {
@@ -2872,16 +2872,16 @@
     display: grid !important;
   }
 
-  .d-lg-table {
-    display: table !important;
+  .d-lg-Tafel {
+    display: Tafel !important;
   }
 
-  .d-lg-table-row {
-    display: table-row !important;
+  .d-lg-Tafel-row {
+    display: Tafel-row !important;
   }
 
-  .d-lg-table-cell {
-    display: table-cell !important;
+  .d-lg-Tafel-cell {
+    display: Tafel-cell !important;
   }
 
   .d-lg-flex {
@@ -3523,16 +3523,16 @@
     display: grid !important;
   }
 
-  .d-xl-table {
-    display: table !important;
+  .d-xl-Tafel {
+    display: Tafel !important;
   }
 
-  .d-xl-table-row {
-    display: table-row !important;
+  .d-xl-Tafel-row {
+    display: Tafel-row !important;
   }
 
-  .d-xl-table-cell {
-    display: table-cell !important;
+  .d-xl-Tafel-cell {
+    display: Tafel-cell !important;
   }
 
   .d-xl-flex {
@@ -4174,16 +4174,16 @@
     display: grid !important;
   }
 
-  .d-xxl-table {
-    display: table !important;
+  .d-xxl-Tafel {
+    display: Tafel !important;
   }
 
-  .d-xxl-table-row {
-    display: table-row !important;
+  .d-xxl-Tafel-row {
+    display: Tafel-row !important;
   }
 
-  .d-xxl-table-cell {
-    display: table-cell !important;
+  .d-xxl-Tafel-cell {
+    display: Tafel-cell !important;
   }
 
   .d-xxl-flex {
@@ -4830,16 +4830,16 @@
     display: grid !important;
   }
 
-  .d-print-table {
-    display: table !important;
+  .d-print-Tafel {
+    display: Tafel !important;
   }
 
-  .d-print-table-row {
-    display: table-row !important;
+  .d-print-Tafel-row {
+    display: Tafel-row !important;
   }
 
-  .d-print-table-cell {
-    display: table-cell !important;
+  .d-print-Tafel-cell {
+    display: Tafel-cell !important;
   }
 
   .d-print-flex {

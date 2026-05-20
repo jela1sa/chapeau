@@ -2,7 +2,7 @@
 
 namespace Chapeau.Services
 {
-    public interface IUsersService
+    public interface IMedewerkersService
     {
         Medewerker? GetByLoginCredentials(string gebruikersnaam, string wachtwoord);
         public void Add(Medewerker medewerker);
