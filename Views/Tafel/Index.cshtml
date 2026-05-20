@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	ViewData["Title"] = "overview Tafels";
+}
+
+<div class="Tafel-grid">
+	@foreach (var Tafel in Model)
+	{
+		<div class="Tafel-card">
+
+			<div class="Bestelling_Status-circle @(Tafel.Bestelling_Status ? "red" : "green")"></div>
+
+			<div class="Tafel-number">
+				@Tafel.tafel_nummer
+			</div>
+
+			<a href="/Tafel/Edit/@Tafel.tafel_ID" class="button">
+				Edit
+			</a>
+
+		</div>
+	}
+</div>

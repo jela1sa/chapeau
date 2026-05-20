@@ -5,12 +5,12 @@
 <form method="get">
     <button type="submit">Refresh</button>
 </form>
-<table class="table">
+<Tafel class="Tafel">
     <thead>
         <tr>
             <th>Bestelling</th>
             <th>Tafel</th>
-            <th>Status</th>
+            <th>Bestelling_Status</th>
             <th>Order tijd</th>
             <th>Wachttijd</th>
         </tr>
@@ -22,10 +22,10 @@
             <tr>
                 <td>@order.Bestelling_ID</td>
                 <td>@order.TafelNummer</td>
-                <td>@order.Bestelling_Status</td>
+                <td>@order.Bestelling_Bestelling_Status</td>
                 <td>@order.Datum_Tijd</td>
                 <td>@order.Wachttijd minuten</td>
             </tr>
         }
     </tbody>
-</table>
+</Tafel>

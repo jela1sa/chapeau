@@ -1,23 +1,22 @@
-﻿using Chapeau.Repositorys;
+﻿using Chapeau.Repositories;
 using Chapeau.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace Chapeau.Controllers
 {
     [Authorize]
-    public class PaymentController : Controller
+    public class BetalingController : Controller
     {
-        private readonly IOrderService _service;
+        private readonly IBestellingService _service;
 
-        public PaymentController(IOrderService service)
+        public BetalingController(IBestellingService service)
         {
             _service = service;
         }
 
-        public ActionResult Index(int tableId)
+        public ActionResult Index(int Tafel_ID)
         {
-            var model = _service.GetPaymentDetails(tableId);
-
+            var model = _service.GetBetalingDetails(Tafel_ID);
             if (model == null)
             {
                 return HttpNotFound();

@@ -24,13 +24,13 @@ body {
 
 
 
-.table-grid {
+.Tafel-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
 }
 
-.table-card {
+.Tafel-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -40,16 +40,16 @@ body {
     background: white;
 }
 
-.status-circle {
+.Bestelling_Status-circle {
     width: 14px;
     height: 14px;
     border-radius: 50%;
 }
 
-    .status-circle.green {
+    .Bestelling_Status-circle.green {
         background-color: #2ecc71;
     }
 
-    .status-circle.red {
+    .Bestelling_Status-circle.red {
         background-color: #e74c3c;
     }

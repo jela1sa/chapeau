@@ -3,21 +3,21 @@ using Microsoft.Data.SqlClient;
 
 namespace Chapeau.Repositories
 {
-    public class DBTablesRepository : ITablesRepository
+    public class DBTafelRepository : ITafelRepository
     {
         private readonly string _connectionString;
 
 
-        public DBTablesRepository(IConfiguration configuration)
+        public DBTafelRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("ChapeauDatabase");
         }
-        public List<Table> GetAll()
+        public List<Tafel> GetAll()
         {
-            List<Table> table = new List<Table>();
+            List<Tafel> Tafel = new List<Tafel>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT tafel_ID, tafel_nummer, aantal_stoelen, status FROM Tafel ORDER BY tafel_ID";
+                string query = "SELECT tafel_ID, tafel_nummer, aantal_stoelen, Bestelling_Status FROM Tafel ORDER BY tafel_ID";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -26,24 +26,24 @@ namespace Chapeau.Repositories
                     int tafel_ID = reader.GetInt32(0);
                     string tafel_nummer = reader.GetString(1);
                     int aantal_stoelen = reader.GetInt32(2);
-                    bool status = reader.GetBoolean(3);
-                    Table tables = new Table(tafel_ID, tafel_nummer, aantal_stoelen, status);
-                    table.Add(tables);
+                    bool Bestelling_Status = reader.GetBoolean(3);
+                    Tafel Tafels = new Tafel(tafel_ID, tafel_nummer, aantal_stoelen, Bestelling_Status);
+                    Tafel.Add(Tafels);
                 }
             }
-            return table;
+            return Tafel;
         }
 
-        public void Update(Table table)
+        public void Update(Tafel Tafel)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"UPDATE Tafel SET tafel_ID = @tafel_ID, tafel_nummer = @tafel_nummer, aantal_stoelen = @aantal_stoelen, status = @status WHERE tafel_ID = @tafel_ID";
+                string query = @"UPDATE Tafel SET tafel_ID = @tafel_ID, tafel_nummer = @tafel_nummer, aantal_stoelen = @aantal_stoelen, Bestelling_Status = @Bestelling_Status WHERE tafel_ID = @tafel_ID";
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@tafel_ID", table.tafel_ID);
-                command.Parameters.AddWithValue("@tafel_nummer", table.tafel_nummer);
-                command.Parameters.AddWithValue("@aantal_stoelen", table.aantal_stoelen);
-                command.Parameters.AddWithValue("@status", table.status);
+                command.Parameters.AddWithValue("@tafel_ID", Tafel.Tafel_ID);
+                command.Parameters.AddWithValue("@tafel_nummer", Tafel.Tafel_Nummer);
+                command.Parameters.AddWithValue("@aantal_stoelen", Tafel.Aantal_stoelen);
+                command.Parameters.AddWithValue("@Bestelling_Status", Tafel.Bestelling_Status);
                 command.Connection.Open();
                 int nrOfRowsAffected = command.ExecuteNonQuery();
                 if (nrOfRowsAffected != 1)
@@ -52,12 +52,12 @@ namespace Chapeau.Repositories
                 }
             }
         }
-        public Table? GetById(int tafel_ID)
+        public Tafel? GetById(int tafel_ID)
         {
-            Table? table = null;
+            Tafel? Tafel = null;
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = $"SELECT tafel_ID, tafel_nummer, aantal_stoelen, status FROM Tafel WHERE tafel_ID = @tafel_ID";
+                string query = $"SELECT tafel_ID, tafel_nummer, aantal_stoelen, Bestelling_Status FROM Tafel WHERE tafel_ID = @tafel_ID";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@tafel_ID", tafel_ID);
                 command.Connection.Open();
@@ -67,12 +67,12 @@ namespace Chapeau.Repositories
                     int Tafel_ID = reader.GetInt32(0);
                     string tafel_nummer = reader.GetString(1);
                     int aantal_stoelen = reader.GetInt32(2);
-                    Boolean status = reader.GetBoolean(3);
-                    table = new Table(Tafel_ID, tafel_nummer, aantal_stoelen, status);
+                    Boolean Bestelling_Status = reader.GetBoolean(3);
+                    Tafel = new Tafel(Tafel_ID, tafel_nummer, aantal_stoelen, Bestelling_Status);
 
                 }
             }
-            return table;
+            return Tafel;
         }
 
     }
