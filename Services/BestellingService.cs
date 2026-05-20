@@ -1,13 +1,13 @@
-﻿using Chapeau.Repositorys;
+﻿using Chapeau.Repositories;
 using Chapeau.ViewModels;
 
 namespace Chapeau.Services
 {
     public class BestellingService : IBestellingService
     {
-        private readonly IOrderRepository _repository;
+        private readonly IBestellingRepository _repository;
 
-        public BestellingService(IOrderRepository repository)
+        public BestellingService(IBestellingRepository repository)
         {
             _repository = repository;
         }

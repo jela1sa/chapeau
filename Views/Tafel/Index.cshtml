@@ -10,13 +10,13 @@
 	{
 		<div class="Tafel-card">
 
-			<div class="Bestelling_Status-circle @(Tafel.Bestelling_Status ? "red" : "green")"></div>
+			<div class="Bestelling_Status-circle @(Tafel.Status ? "red" : "green")"></div>
 
 			<div class="Tafel-number">
-				@Tafel.tafel_nummer
+				@Tafel.Tafel_Nummer
 			</div>
 
-			<a href="/Tafel/Edit/@Tafel.tafel_ID" class="button">
+			<a href="/Tafel/Edit/@Tafel.Tafel_ID" class="button">
 				Edit
 			</a>
 

@@ -2,7 +2,7 @@
 {
     public class BetalingViewModel
     {
-        public int TafelId { get; set; }
+        public int Tafel_ID { get; set; }
 
         public List<BetalingItemViewModel> Items { get; set; }
 

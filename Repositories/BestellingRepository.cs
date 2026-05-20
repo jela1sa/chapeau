@@ -18,9 +18,9 @@ namespace Chapeau.Repositories
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SELECT Bestelling.bestelling_ID, Bestelling.tafel_ID, Tafel.tafel_nummer, Bestelling.datum_tijd, Bestelling.bestelling_Bestelling_Status,
+                string query = @"SELECT Bestelling.bestelling_ID, Bestelling.tafel_ID, Tafel.tafel_nummer, Bestelling.datum_tijd, Bestelling.bestelling_Status,
                    Bestelling.tijdstip_opgegeven FROM Bestelling JOIN Tafel ON Bestelling.tafel_ID = Tafel.tafel_ID 
-                   WHERE Bestelling.bestelling_Bestelling_Status IN ('opgenomen', 'in_bereiding') ORDER BY Bestelling.datum_tijd ASC; ";
+                   WHERE Bestelling.bestelling_Status IN ('opgenomen', 'in_bereiding') ORDER BY Bestelling.datum_tijd ASC; ";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -69,35 +69,35 @@ namespace Chapeau.Repositories
                 conn.Open();
 
                 string query = @"
-                    SELECT 
-                        b.bestelling_id,
-                        b.tafel_id,
-                        b.bediening_id,
-                        b.datum_tijd,
-                        b.Bestelling_Status,
-                        b.tijdstip_opgegeven,
+    SELECT 
+        b.bestelling_id,
+        b.tafel_id,
+        b.bediening_id,
+        b.datum_tijd,
+        b.bestelling_status,
+        b.tijdstip_opgegeven,
 
-                        oi.order_item_id,
-                        oi.aantal,
+        oi.order_item_id,
+        oi.aantal,
 
-                        mi.item_id,
-                        mi.naam,
-                        mi.beschrijving,
-                        mi.prijs,
-                        mi.categorie,
-                        mi.btw_tarief
+        mi.item_id,
+        mi.naam,
+        mi.beschrijving,
+        mi.prijs,
+        mi.categorie,
+        mi.btw_tarief
 
-                    FROM BESTELLING b
+    FROM BESTELLING b
 
-                    INNER JOIN ORDER_ITEM oi
-                        ON b.bestelling_id = oi.bestelling_id
+    INNER JOIN ORDER_ITEM oi
+        ON b.bestelling_id = oi.bestelling_id
 
-                    INNER JOIN MENU_ITEM mi
-                        ON oi.item_id = mi.item_id
+    INNER JOIN MENU_ITEM mi
+        ON oi.item_id = mi.item_id
 
-                    WHERE b.tafel_id = @Tafel_ID
-                    AND b.Bestelling_Status = 'Open'
-                ";
+    WHERE b.tafel_id = @Tafel_ID
+    AND b.bestelling_status = 'Open'
+";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
