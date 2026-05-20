@@ -1,4 +1,5 @@
 using Chapeau.Models;
+using Chapeau.ViewModels;
 using Microsoft.Data.SqlClient;
 
 namespace Chapeau.Repositories;
@@ -48,23 +49,26 @@ public class DbMenusRepository : IMenusRepository
         return menuItems;
     }
     
-    public List<MenuItem> GetFilteredMenuItems(string cardFilter, string categoryFilter)
+    public List<MenuItemStockViewModel> GetMenuWithStock(string cardFilter, string categoryFilter)
     {
         string query = @"
-        SELECT *
-        FROM MenuItem
+        SELECT 
+            m.item_ID, m.naam, m.beschrijving, m.prijs, m.categorie, m.BTW_Tarief,
+            v.voorraad_id, v.item_id, v.locatie, v.hoeveelheid, v.minimum_niveau
+        FROM MenuItem m
+        LEFT JOIN Voorraad v ON m.item_ID = v.item_id
         WHERE
         (
             @cardFilter = 'all'
-            OR Categorie LIKE '%' + @cardFilter + '%'
+            OR m.categorie LIKE '%' + @cardFilter + '%'
         )
         AND
         (
             @categoryFilter = 'all'
-            OR Naam LIKE '%' + @categoryFilter + '%'
+            OR m.naam LIKE '%' + @categoryFilter + '%'
         )";
 
-        List<MenuItem> menuItems = new List<MenuItem>();
+        List<MenuItemStockViewModel> result = new();
 
         using (SqlConnection conn = new SqlConnection(_connectionString))
         {
@@ -79,13 +83,34 @@ public class DbMenusRepository : IMenusRepository
 
             while (reader.Read())
             {
-                MenuItem menuItem = readMenuItem(reader);
-                menuItems.Add(menuItem);
+                var menuItem = readMenuItem(reader);
+
+                Voorraad voorraad = null;
+
+                if (reader["voorraad_id"] != DBNull.Value)
+                {
+                    voorraad = new Voorraad
+                    {
+                        VoorraadId = (int)reader["voorraad_id"],
+                        ItemId = (string)reader["item_id"],
+                        Locatie = (string)reader["locatie"],
+                        Hoeveelheid = (int)reader["hoeveelheid"],
+                        MinimumNiveau = (int)reader["minimum_niveau"]
+                    };
+                }
+
+                result.Add(new MenuItemStockViewModel
+                {
+                    MenuItem = menuItem,
+                    Voorraad = voorraad
+                });
             }
         }
 
-        return menuItems;
+        return result;
     }
+
+  
 
     public MenuItem? GetById(int menuItemId)
     {

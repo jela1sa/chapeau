@@ -1,4 +1,4 @@
-@model IEnumerable<MenuItem>
+@model IEnumerable<Chapeau.ViewModels.MenuItemStockViewModel>
 
 @{
     Layout = "_Layout";
@@ -33,17 +33,32 @@
 </div>
     
 <div class="d-flex flex-wrap gap-3">
-    @{
-        foreach (var menuItem in Model)
-        {
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">@menuItem.Naam</h5>
-                    <p class="card-text">@menuItem.Prijs</p>
-                </div>
+
+    @foreach (var item in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+
+                <h5 class="card-title">@item.MenuItem.Naam</h5>
+                <p class="card-text">€ @item.MenuItem.Prijs</p>
+
+                @if (item.Voorraad == null || item.Voorraad.Hoeveelheid == 0)
+                {
+                    <span class="badge bg-danger">Out of stock</span>
+                }
+                else if (item.Voorraad.Hoeveelheid <= 10)
+                {
+                    <span class="badge bg-warning text-dark">Almost out of stock</span>
+                }
+                else
+                {
+                    <span class="badge bg-success">In stock</span>
+                }
+
             </div>
-        }
+        </div>
     }
+
 </div>
 
 </body>

@@ -1,4 +1,5 @@
 using Chapeau.Models;
+using Chapeau.ViewModels;
 
 namespace Chapeau.Repositories;
 
@@ -9,5 +10,5 @@ public interface IMenusRepository
     void Add(MenuItem menuItem);
     void Update(MenuItem menuItem);
     void Delete(MenuItem menuItem);
-    List<MenuItem> GetFilteredMenuItems(string cardFilter, string categoryFilter);
+    List<MenuItemStockViewModel> GetMenuWithStock(string cardFilter, string categoryFilter);
 }
