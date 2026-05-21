@@ -1,25 +1,25 @@
-﻿using Chapeau.Repositorys;
+﻿using Chapeau.Repositories;
 using Chapeau.ViewModels;
 
 namespace Chapeau.Services
 {
-    public class OrderService : IOrderService
+    public class BestellingService : IBestellingService
     {
-        private readonly IOrderRepository _repository;
+        private readonly IBestellingRepository _repository;
 
-        public OrderService(IOrderRepository repository)
+        public BestellingService(IBestellingRepository repository)
         {
             _repository = repository;
         }
 
-        public PaymentViewModel GetPaymentDetails(int tableId)
+        public BetalingViewModel GetBetalingDetails(int Tafel_ID)
         {
-            var order = _repository.GetOrderByTable(tableId);
+            var order = _repository.GetOrderByTafel(Tafel_ID);
 
             if (order == null)
                 return null;
 
-            var groupedItems = order.OrderItems
+            var groupedItems = order.BestellingItems
                 .GroupBy(x => x.MenuItem.Naam)
                 .Select(g =>
                 {
@@ -29,7 +29,7 @@ namespace Chapeau.Services
 
                     decimal total = quantity * first.MenuItem.Prijs;
 
-                    return new PaymentItemViewModel
+                    return new BetalingItemViewModel
                     {
                         Name = first.MenuItem.Naam,
                         Quantity = quantity,
@@ -50,9 +50,9 @@ namespace Chapeau.Services
                 .Where(x => x.VatRate > 9)
                 .Sum(x => x.TotalPrice);
 
-            return new PaymentViewModel
+            return new BetalingViewModel
             {
-                TableId = tableId,
+                Tafel_ID = Tafel_ID,
                 Items = groupedItems,
                 TotalAmount = totalAmount,
                 LowVatTotal = lowVat,

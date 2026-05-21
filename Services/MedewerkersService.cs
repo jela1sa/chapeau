@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Chapeau.Services
 {
-    public class UsersService: IUsersService
+    public class MedewerkersService: IMedewerkersService
     {
         private readonly IMedewerkerRepository _medewerkerRepository;
-        public UsersService(IMedewerkerRepository medewerkerRepository)
+        public MedewerkersService(IMedewerkerRepository medewerkerRepository)
         {
             _medewerkerRepository = medewerkerRepository;
         }

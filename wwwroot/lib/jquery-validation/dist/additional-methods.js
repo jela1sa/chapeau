@@ -44,10 +44,10 @@
 }() );
 
 /**
- * This is used in the United States to process payments, deposits,
+ * This is used in the United States to process Betalings, deposits,
  * or transfers using the Automated Clearing House (ACH) or Fedwire
  * systems. A very common use case would be to validate a form for
- * an ACH bill payment.
+ * an ACH bill Betaling.
  */
 $.validator.addMethod( "abaRoutingNumber", function( value ) {
 	var checksum = 0;
@@ -125,7 +125,7 @@ $.validator.addMethod( "alphanumeric", function( value, element ) {
  * Dutch bank account numbers (not 'giro' numbers) have 9 digits
  * and pass the '11 check'.
  * We accept the notation with spaces, as that is common.
- * acceptable: 123456789 or 12 34 56 789
+ * accepTafel: 123456789 or 12 34 56 789
  */
 $.validator.addMethod( "bankaccountNL", function( value, element ) {
 	if ( this.optional( element ) ) {

@@ -1,12 +1,12 @@
 ﻿@page
-@model Chapeau.ViewModels.PaymentViewModel
+@model Chapeau.ViewModels.BetalingViewModel
 @{
-    ViewBag.Title = "Payment Overview";
+    ViewBag.Title = "Betaling Overview";
 }
 
-<h2>Table @Model.TableId</h2>
+<h2>Tafel @Model.Tafel_ID</h2>
 
-<table class="table">
+<Tafel class="Tafel">
     <thead>
         <tr>
             <th>Item</th>
@@ -29,7 +29,7 @@
             </tr>
         }
     </tbody>
-</table>
+</Tafel>
 
 <hr />
 
