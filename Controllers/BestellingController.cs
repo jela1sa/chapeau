@@ -1,8 +1,10 @@
 ﻿using Chapeau.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chapeau.Controllers
 {
+    [Authorize]
     public class BestellingController : Controller
     {
         private readonly IBestellingRepository _bestellingRepository;
