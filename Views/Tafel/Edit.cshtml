@@ -27,9 +27,25 @@
 		Tafel => Tafel.Status,
 				new List<SelectListItem>
 				{
-				new SelectListItem { Text = "No", Value = "false" },
-				new SelectListItem { Text = "Yes", Value = "true" }
+				new SelectListItem { Text = "Nee", Value = "vrij" },
+				new SelectListItem { Text = "ja", Value = "bezet" },
+				new SelectListItem { Text = "gereserveerd", Value = "gereserveerd" }
 				
+				},
+				new { @class = "form-control", id = "Bestelling_Status" }
+				)
+	</div>
+	<div class="form-group py-2">
+		<label for="Bestelling_Status">bestelling status:</label>
+		@Html.DropDownListFor(
+				Tafel => Tafel.bestelling_status,
+				new List<SelectListItem>
+				{
+				new SelectListItem { Text = "nog niet besteld", Value = "nog_niet_besteld" },
+				new SelectListItem { Text = "besteld", Value = "besteld" },
+				new SelectListItem { Text = "in bereiding", Value = "in_bereiding" },
+				new SelectListItem { Text = "bereid", Value = "gereed" },
+				new SelectListItem { Text = "geserveerd", Value = "geserveerd" }
 				},
 				new { @class = "form-control", id = "Bestelling_Status" }
 				)

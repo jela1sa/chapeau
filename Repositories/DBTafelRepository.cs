@@ -12,15 +12,16 @@ namespace Chapeau.Repositories
             _connectionString = configuration.GetConnectionString("ChapeauDatabase");
         }
 
+        //add the join of status from bestelling? through tafel_ID
         public List<Tafel> GetAll()
         {
             List<Tafel> tafels = new List<Tafel>();
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SELECT tafel_ID, tafel_nummer, aantal_stoelen, status 
-                                 FROM Tafel 
-                                 ORDER BY tafel_ID";
+                string query = @"SELECT Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status
+                                 FROM Tafel JOIN Bestelling ON Tafel.tafel_ID = Bestelling.tafel_ID
+                                 ORDER BY Tafel.tafel_ID";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -33,13 +34,15 @@ namespace Chapeau.Repositories
                     int tafel_ID = reader.GetInt32(0);
                     string tafel_nummer = reader.GetString(1);
                     int aantal_stoelen = reader.GetInt32(2);
-                    bool status = reader.GetBoolean(3);
+                    string status = reader.GetString(3);
+                    string bestelling_status = reader.GetString(4);
 
                     Tafel tafel = new Tafel(
                         tafel_ID,
                         tafel_nummer,
                         aantal_stoelen,
-                        status
+                        status,
+                        bestelling_status
                     );
 
                     tafels.Add(tafel);
@@ -55,9 +58,9 @@ namespace Chapeau.Repositories
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SELECT tafel_ID, tafel_nummer, aantal_stoelen, status 
-                                 FROM Tafel 
-                                 WHERE tafel_ID = @tafel_ID";
+                string query = @"SELECT Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status
+                                 FROM Tafel JOIN Bestelling ON Tafel.tafel_ID = Bestelling.tafel_ID
+                                 WHERE Tafel.tafel_ID = @tafel_ID";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -72,13 +75,15 @@ namespace Chapeau.Repositories
                     int id = reader.GetInt32(0);
                     string tafel_nummer = reader.GetString(1);
                     int aantal_stoelen = reader.GetInt32(2);
-                    bool status = reader.GetBoolean(3);
+                    string status = reader.GetString(3);
+                    string bestelling_status = reader.GetString(4);
 
                     tafel = new Tafel(
                         id,
                         tafel_nummer,
                         aantal_stoelen,
-                        status
+                        status,
+                        bestelling_status
                     );
                 }
             }
@@ -86,31 +91,89 @@ namespace Chapeau.Repositories
             return tafel;
         }
 
+        //public void Update(Tafel tafel)
+        //{
+        //    using (SqlConnection connection = new SqlConnection(_connectionString))
+        //    {
+        //        connection.Open();
+        //        string query = @"UPDATE Tafel
+        //                         SET Tafel.tafel_nummer = @tafel_nummer,
+        //                             Tafel.aantal_stoelen = @aantal_stoelen,
+        //                             Tafel.status = @status,
+        //                         WHERE Tafel.tafel_ID = @tafel_ID";
+
+
+        //        SqlCommand command = new SqlCommand(query, connection);
+
+        //        command.Parameters.AddWithValue("@tafel_ID", tafel.Tafel_ID);
+        //        command.Parameters.AddWithValue("@tafel_nummer", tafel.Tafel_Nummer);
+        //        command.Parameters.AddWithValue("@aantal_stoelen", tafel.Aantal_stoelen);
+        //        command.Parameters.AddWithValue("@status", tafel.Status);
+
+
+
+        //        int nrOfRowsAffected = command.ExecuteNonQuery();
+
+        //        if (nrOfRowsAffected != 1)
+        //        {
+        //            throw new Exception("Update failed");
+        //        }
+        //        string bestellingquery = @"UPDATE Bestelling
+        //                   SET bestelling_status = @bestelling_status
+        //                   WHERE tafel_ID = @tafel_ID";
+
+
+        //        SqlCommand command2 = new SqlCommand(bestellingquery, connection);
+        //        command.Parameters.AddWithValue("@tafel_ID", tafel.Tafel_ID);
+        //        command.Parameters.AddWithValue("@bestelling_status", tafel.bestelling_status);
+        //        int nrOfRowsAffected2 = command2.ExecuteNonQuery();
+
+        //        if (nrOfRowsAffected2 != 1)
+        //        {
+        //            throw new Exception("Update failed");
+        //        }
+        //    }
+        //}
         public void Update(Tafel tafel)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
+                connection.Open();
+
                 string query = @"UPDATE Tafel
-                                 SET tafel_nummer = @tafel_nummer,
-                                     aantal_stoelen = @aantal_stoelen,
-                                     status = @status
-                                 WHERE tafel_ID = @tafel_ID";
+                         SET tafel_nummer = @tafel_nummer,
+                             aantal_stoelen = @aantal_stoelen,
+                             status = @status
+                         WHERE tafel_ID = @tafel_ID";
 
                 SqlCommand command = new SqlCommand(query, connection);
-
                 command.Parameters.AddWithValue("@tafel_ID", tafel.Tafel_ID);
                 command.Parameters.AddWithValue("@tafel_nummer", tafel.Tafel_Nummer);
                 command.Parameters.AddWithValue("@aantal_stoelen", tafel.Aantal_stoelen);
                 command.Parameters.AddWithValue("@status", tafel.Status);
 
-                connection.Open();
-
                 int nrOfRowsAffected = command.ExecuteNonQuery();
 
-                if (nrOfRowsAffected != 1)
+                if (nrOfRowsAffected < 1)
                 {
-                    throw new Exception("Update failed");
+                    throw new Exception("Update failed: Tafel not found or not updated.");
                 }
+
+                string bestellingQuery = @"UPDATE Bestelling
+                                   SET bestelling_status = @bestelling_status
+                                   WHERE tafel_ID = @tafel_ID";
+
+                SqlCommand command2 = new SqlCommand(bestellingQuery, connection);
+                command2.Parameters.AddWithValue("@tafel_ID", tafel.Tafel_ID);
+                command2.Parameters.AddWithValue("@bestelling_status", tafel.bestelling_status);
+
+                int nrOfRowsAffected2 = command2.ExecuteNonQuery();
+
+                if (nrOfRowsAffected < 1)
+                {
+                    throw new Exception("Update failed: Tafel not found or not updated.");
+                }
+
             }
         }
     }
