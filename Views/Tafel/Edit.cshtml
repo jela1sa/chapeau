@@ -22,13 +22,13 @@
 		<input type="text" id="aantal_stoelen" name="aantal_stoelen" class="form-control" required value="@Model?.Aantal_stoelen" />
 	</div>
 	<div class="form-group py-2">
-		<label for="Bestelling_Status">Beschikbaar:</label>
+		<label for="Bestelling_Status">Beschikbaarheid:</label>
 		@Html.DropDownListFor(
 		Tafel => Tafel.Status,
 				new List<SelectListItem>
 				{
-				new SelectListItem { Text = "Nee", Value = "vrij" },
-				new SelectListItem { Text = "ja", Value = "bezet" },
+				new SelectListItem { Text = "Vrij", Value = "vrij" },
+				new SelectListItem { Text = "Bezet", Value = "bezet" },
 				new SelectListItem { Text = "gereserveerd", Value = "gereserveerd" }
 				
 				},
