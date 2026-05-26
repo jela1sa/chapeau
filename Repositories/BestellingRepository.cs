@@ -59,7 +59,7 @@ namespace Chapeau.Repositories
             return bestellingen;
         }
         
-        public Bestelling GetOrderByTafel(int Tafel_ID)
+        public Bestelling GetbestellingByTafel(int Tafel_ID)
         {
             Bestelling order = null;
             List<BestellingItem> BestellingItems = new();
