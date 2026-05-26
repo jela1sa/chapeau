@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	ViewData["Title"] = "overview Tafels";
+}
+
+<div class="Tafel-grid">
+	@foreach (var Tafel in Model)
+	{
+		<div class="Tafel-card">
+
+			<div class="status-group">
+				<div class="Bestelling_Status-circle
+				@(Tafel.Status == "vrij" ? "green" :
+						   		Tafel.Status == "bezet" ? "red" :
+						   		Tafel.Status == "gereserveerd" ? "grey" :
+						   		"green")">
+								   			</div>
+
+			<div class="Bestelling_Status-circle
+			    @(Tafel.bestelling_status == "nog_niet_besteld" ? "red" :
+						   		Tafel.bestelling_status == "besteld" ? "purple" :
+						   		Tafel.bestelling_status == "in_bereiding" ? "orange" :
+						   		Tafel.bestelling_status == "gereed" ? "yellow" :
+						   		Tafel.bestelling_status == "geserveerd" ? "green" :
+						   		"red")">
+			    </div>
+		</div>
+
+			<div class="Tafel-number">
+				@Tafel.Tafel_Nummer
+			</div>
+
+			<a href="/Tafel/Edit/@Tafel.Tafel_ID" class="button">
+				Edit
+			</a>
+
+		</div>
+		}
+</div>
+
+
+
+<div class="parent-element">
+	<div class="textp1">
+		 <p><strong>Kleuren beschikbaarheid</strong></P>
+			 <P><em>groen:</em> vrij</P>
+			<P><em>rood:</em> bezet</P>
+			<P><em>grijs:</em> gereserveerd</P>
+	</div>
+	<div class="textp2">
+		<p><strong>Kleuren bestelstatus</strong></P>
+			<P><em>rood:</em> nog niet besteld</P>
+			<P><em>paars:</em> besteld</P>
+			<P><em>oranje:</em> in bereiding</P>
+			<P><em>geel:</em> bereid</P>
+			<P><em>groen:</em> geserveerd</P>
+	</div>
+</div>
+
+
+@*a notice with which colors mean what
+	Update colors in css
+*@

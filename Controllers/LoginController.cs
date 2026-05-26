@@ -16,10 +16,10 @@ namespace Chapeau.Controllers
         {
             _medewerkerRepository = medewerkerRepository;
         }*/
-        private readonly IUsersService _usersService;
-        public LoginController(IUsersService usersService)
+        private readonly IMedewerkersService _medewerkersService;
+        public LoginController(IMedewerkersService medewerkersService)
         {
-            _usersService = usersService;
+            _medewerkersService = medewerkersService;
         }
         public IActionResult Index()
         {
@@ -44,7 +44,7 @@ namespace Chapeau.Controllers
                 return View("Login");
             }
                 HttpContext.Session.SetObject("LoggedInMedewerker", medewerker);
-                return RedirectToAction("Index", "Table");*/
+                return RedirectToAction("Index", "Tafel");*/
             List<Claim> claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, loginModel.bediening_ID.ToString()),
@@ -55,7 +55,7 @@ namespace Chapeau.Controllers
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
             HttpContext.SignInAsync(principal);
-            return RedirectToAction("Index", "Table");
+            return RedirectToAction("Index", "Tafel");
         }
         [HttpPost]
         public IActionResult LogOff(){

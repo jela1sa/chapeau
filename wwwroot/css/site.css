@@ -24,13 +24,13 @@ body {
 
 
 
-.table-grid {
+.Tafel-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
 }
 
-.table-card {
+.Tafel-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -39,17 +39,52 @@ body {
     border: 1px solid #ddd;
     background: white;
 }
-
-.status-circle {
+.status-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.Bestelling_Status-circle {
     width: 14px;
     height: 14px;
     border-radius: 50%;
 }
 
-    .status-circle.green {
+    .Bestelling_Status-circle.green {
         background-color: #2ecc71;
     }
 
-    .status-circle.red {
+    .Bestelling_Status-circle.red {
         background-color: #e74c3c;
     }
+    .Bestelling_Status-circle.purple {
+        background-color: purple;
+    }
+    .Bestelling_Status-circle.orange {
+        background-color: orange;
+    }
+    .Bestelling_Status-circle.yellow {
+        background-color: yellow;
+    }
+    .Bestelling_Status-circle.grey {
+        background-color: grey;
+    }
+
+
+.textp1 {
+    margin-left: 150px;
+    max-width: 150px;
+}
+
+.textp2 {
+    max-width: 150px;
+    margin-left: 30px;
+}
+
+.parent-element {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: start;
+}
