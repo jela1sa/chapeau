@@ -49,6 +49,10 @@ body {
     height: 14px;
     border-radius: 50%;
 }
+.Bestelling_Status-square {
+    width: 14px;
+    height: 14px;
+}
 
     .Bestelling_Status-circle.green {
         background-color: #2ecc71;
@@ -71,13 +75,35 @@ body {
     }
 
 
+.Bestelling_Status-square.green {
+    background-color: #2ecc71;
+}
+
+.Bestelling_Status-square.red {
+    background-color: #e74c3c;
+}
+
+.Bestelling_Status-square.purple {
+    background-color: purple;
+}
+
+.Bestelling_Status-square.orange {
+    background-color: orange;
+}
+
+.Bestelling_Status-square.yellow {
+    background-color: yellow;
+}
+
+
+
 .textp1 {
     margin-left: 150px;
-    max-width: 150px;
+    max-width: 200px;
 }
 
 .textp2 {
-    max-width: 150px;
+    max-width: 200px;
     margin-left: 30px;
 }
 
