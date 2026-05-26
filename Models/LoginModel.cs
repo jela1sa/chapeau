@@ -2,18 +2,21 @@
 {
     public class LoginModel
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public int bediening_ID {  get; set; }
+        public string gebruikersnaam { get; set; }
+        public string wachtwoord { get; set; }
 
         public LoginModel()
         {
 
         }
 
-        public LoginModel(string UserName, string Password)
+        public LoginModel(int bediening_ID, string gebruikersnaam, string wachtwoord)
         {
-            this.UserName = UserName;
-            this.Password = Password;
+            this.bediening_ID = bediening_ID;
+            this.gebruikersnaam = gebruikersnaam;
+            this.wachtwoord = wachtwoord;
         }
+
     }
 }
