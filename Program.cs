@@ -15,8 +15,8 @@ namespace Chapeau
             builder.Services.AddScoped<DBDummyRep>();
             builder.Services.AddScoped<IBestellingRepository, BestellingRepository>();
             builder.Services.AddSingleton<IMedewerkerRepository, DBMedewerkerRepository>();
-            builder.Services.AddSingleton<IUsersService, UsersService>();
-            builder.Services.AddScoped<ITablesRepository, DBTablesRepository>();
+            builder.Services.AddSingleton<IMedewerkersService, MedewerkersService>();
+            builder.Services.AddScoped<ITafelRepository, DBTafelRepository>();
 
             builder.Services.AddSession(options =>
             {

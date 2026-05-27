@@ -1,0 +1,48 @@
+﻿@page
+@model Chapeau.ViewModels.BetalingViewModel
+@{
+    ViewBag.Title = "Betaling Overview";
+}
+
+<h2>Tafel @Model.Tafel_ID</h2>
+
+<Tafel class="Tafel">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>VAT</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Quantity</td>
+                <td>€ @item.PricePerItem.ToString("0.00")</td>
+                <td>€ @item.TotalPrice.ToString("0.00")</td>
+                <td>@item.VatRate %</td>
+            </tr>
+        }
+    </tbody>
+</Tafel>
+
+<hr />
+
+<div>
+    <h3>Total: € @Model.TotalAmount.ToString("0.00")</h3>
+
+    <p>
+        Low VAT Total:
+        € @Model.LowVatTotal.ToString("0.00")
+    </p>
+
+    <p>
+        High VAT Total:
+        € @Model.HighVatTotal.ToString("0.00")
+    </p>
+</div>

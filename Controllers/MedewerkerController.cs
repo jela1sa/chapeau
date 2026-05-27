@@ -12,10 +12,10 @@ namespace Chapeau.Controllers
     [Authorize]
     public class MedewerkerController : Controller
     {
-        private readonly IUsersService _usersService;
-        public MedewerkerController(IUsersService usersService)
+        private readonly IMedewerkersService _medewerkersService;
+        public MedewerkerController(IMedewerkersService medewerkersService)
         {
-            _usersService = usersService;
+            _medewerkersService = medewerkersService;
         }
         public IActionResult Index()
         {
@@ -25,7 +25,7 @@ namespace Chapeau.Controllers
                 loggedInMedewerker = JsonSerializer.Deserialize<Medewerker>(medewerkerJson);
 
             ViewData["LoggedInMedewerker"] = loggedInMedewerker;
-            List<Medewerker> medewerker = _usersService.GetAll();*/
+            List<Medewerker> medewerker = _medewerkersService.GetAll();*/
             return View(/*medewerker*/);
         }
         public ActionResult Account()
@@ -46,7 +46,7 @@ namespace Chapeau.Controllers
             try
             {
                 //add user via repository
-                _usersService.Add(medewerker);
+                _medewerkersService.Add(medewerker);
                 return RedirectToAction("Create");
             }
             catch (Exception ex)

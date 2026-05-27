@@ -1,0 +1,84 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Chapeau.Models.Tafel
+@{
+	ViewData["Title"] = "Edit Tafel";
+}
+
+
+
+<h4>Edit Tafel</h4>
+<form action="/Tafel/Edit" method="POST">
+	<input hidden type="number" name="tafel_ID" value="@Model?.Tafel_ID" />
+
+	<div class="form-group py-2">
+		<label for="tafel_nummer">tafelnummer:</label>
+		<input type="text" id="tafel_nummer" name="tafel_nummer" class="form-control" required value="@Model?.Tafel_Nummer" />
+	</div>
+
+	<div class="form-group py-2">
+		<label for="aantal_stoelen">aantal stoelen:</label>
+		<input type="text" id="aantal_stoelen" name="aantal_stoelen" class="form-control" required value="@Model?.Aantal_stoelen" />
+	</div>
+	<div class="form-group py-2">
+		<label for="Bestelling_Status">Beschikbaarheid:</label>
+		@Html.DropDownListFor(
+		Tafel => Tafel.Status,
+				new List<SelectListItem>
+				{
+				new SelectListItem { Text = "Vrij", Value = "vrij" },
+				new SelectListItem { Text = "Bezet", Value = "bezet" },
+				new SelectListItem { Text = "gereserveerd", Value = "gereserveerd" }
+				
+				},
+				new { @class = "form-control", id = "Bestelling_Status" }
+				)
+	</div>
+
+	@{
+		var statusList = new List<SelectListItem>
+		{
+		new SelectListItem { Text = "nog niet besteld", Value = "nog_niet_besteld" },
+		new SelectListItem { Text = "besteld", Value = "besteld" },
+		new SelectListItem { Text = "in bereiding", Value = "in_bereiding" },
+		new SelectListItem { Text = "bereid", Value = "gereed" }
+		};
+
+		if (Model.bestelling_status == "gereed")
+		{
+			statusList.Add(new SelectListItem
+			{
+				Text = "geserveerd", Value = "geserveerd"
+			});
+		}
+	}
+
+	<div class="form-group py-2">
+		<label for="Bestelling_Status">bestelling status:</label>
+	@Html.DropDownListFor(
+	model => model.bestelling_status,
+		statusList,
+		new { @class = "form-control", id = "Bestelling_Status" }
+		)
+	</div>
+
+	<div class="mt-3">
+		<button type="submit" class="btn btn-primary">Update</button>
+	</div>
+
+	<div class="mt-3">
+		<a href="/Tafel/Index">Back to overview</a>
+	</div>
+</form>
+
+
+
+@*<div class="form-group py-2">
+		<label for="Bestelling_Status">Bestelling_Status:</label>
+		<input type="text" id="Bestelling_Status" name="Bestelling_Status" class="form-control" required value="@Model?.Bestelling_Status" />
+	</div>*@
+
+
+
+

@@ -1097,7 +1097,7 @@ function createPositionalPseudo( fn ) {
 /**
  * Checks a node for validity as a Sizzle context
  * @param {Element|Object=} context
- * @returns {Element|Object|Boolean} The input node if acceptable, otherwise a falsy value
+ * @returns {Element|Object|Boolean} The input node if accepTafel, otherwise a falsy value
  */
 function testContext( context ) {
 	return context && typeof context.getElementsByTagName !== "undefined" && context;
@@ -1693,7 +1693,7 @@ Sizzle.uniqueSort = function( results ) {
 
 	// Unless we *know* we can detect duplicates, assume their presence
 	hasDuplicate = !support.detectDuplicates;
-	sortInput = !support.sortStable && results.slice( 0 );
+	sortInput = !support.sortSTafel && results.slice( 0 );
 	results.sort( sortOrder );
 
 	if ( hasDuplicate ) {
@@ -2912,7 +2912,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 // One-time assignments
 
 // Sort stability
-support.sortStable = expando.split( "" ).sort( sortOrder ).join( "" ) === expando;
+support.sortSTafel = expando.split( "" ).sort( sortOrder ).join( "" ) === expando;
 
 // Support: Chrome 14-35+
 // Always assume duplicates if they aren't passed to the comparison function
@@ -3465,7 +3465,7 @@ jQuery.Callbacks = function( options ) {
 	var // Flag to know if list is currently firing
 		firing,
 
-		// Last fire value for non-forgettable lists
+		// Last fire value for non-forgetTafel lists
 		memory,
 
 		// Flag to know if list was already fired
@@ -3477,7 +3477,7 @@ jQuery.Callbacks = function( options ) {
 		// Actual callback list
 		list = [],
 
-		// Queue of execution data for repeatable lists
+		// Queue of execution data for repeaTafel lists
 		queue = [],
 
 		// Index of currently firing callback (modified by add/remove as needed)
@@ -4945,10 +4945,10 @@ var wrapMap = {
 	// XHTML parsers do not magically insert elements in the
 	// same way that tag soup parsers do. So we cannot shorten
 	// this by omitting <tbody> or other required elements.
-	thead: [ 1, "<table>", "</table>" ],
-	col: [ 2, "<table><colgroup>", "</colgroup></table>" ],
-	tr: [ 2, "<table><tbody>", "</tbody></table>" ],
-	td: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
+	thead: [ 1, "<Tafel>", "</Tafel>" ],
+	col: [ 2, "<Tafel><colgroup>", "</colgroup></Tafel>" ],
+	tr: [ 2, "<Tafel><tbody>", "</tbody></Tafel>" ],
+	td: [ 3, "<Tafel><tbody><tr>", "</tr></tbody></Tafel>" ],
 
 	_default: [ 0, "", "" ]
 };
@@ -5078,7 +5078,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 			setGlobalEval( tmp );
 		}
 
-		// Capture executables
+		// Capture execuTafels
 		if ( scripts ) {
 			j = 0;
 			while ( ( elem = tmp[ j++ ] ) ) {
@@ -5384,7 +5384,7 @@ jQuery.event = {
 		var i, j, ret, matched, handleObj, handlerQueue,
 			args = new Array( arguments.length ),
 
-			// Make a writable jQuery.Event from the native event object
+			// Make a wriTafel jQuery.Event from the native event object
 			event = jQuery.event.fix( nativeEvent ),
 
 			handlers = (
@@ -5526,7 +5526,7 @@ jQuery.event = {
 				Object.defineProperty( this, name, {
 					enumerable: true,
 					configurable: true,
-					writable: true,
+					wriTafel: true,
 					value: value
 				} );
 			}
@@ -5958,9 +5958,9 @@ var
 	rchecked = /checked\s*(?:[^=]|=\s*.checked.)/i,
 	rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
 
-// Prefer a tbody over its parent table for containing new rows
+// Prefer a tbody over its parent Tafel for containing new rows
 function manipulationTarget( elem, content ) {
-	if ( nodeName( elem, "table" ) &&
+	if ( nodeName( elem, "Tafel" ) &&
 		nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
 
 		return jQuery( elem ).children( "tbody" )[ 0 ] || elem;
@@ -6095,7 +6095,7 @@ function domManip( collection, args, callback, ignored ) {
 				// Reenable scripts
 				jQuery.map( scripts, restoreScript );
 
-				// Evaluate executable scripts on first document insertion
+				// Evaluate execuTafel scripts on first document insertion
 				for ( i = 0; i < hasScripts; i++ ) {
 					node = scripts[ i ];
 					if ( rscriptType.test( node.type || "" ) &&
@@ -6523,7 +6523,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 		},
 
 		// Support: IE 9 - 11+, Edge 15 - 18+
-		// IE/Edge misreport `getComputedStyle` of table rows with width/height
+		// IE/Edge misreport `getComputedStyle` of Tafel rows with width/height
 		// set in CSS while `offset*` properties report correct values.
 		// Behavior in IE 9 is more subtle than in newer versions & it passes
 		// some versions of this test; make sure not to make it pass there!
@@ -6532,13 +6532,13 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 		// Only Firefox includes border widths
 		// in computed dimensions. (gh-4529)
 		reliableTrDimensions: function() {
-			var table, tr, trChild, trStyle;
+			var Tafel, tr, trChild, trStyle;
 			if ( reliableTrDimensionsVal == null ) {
-				table = document.createElement( "table" );
+				Tafel = document.createElement( "Tafel" );
 				tr = document.createElement( "tr" );
 				trChild = document.createElement( "div" );
 
-				table.style.cssText = "position:absolute;left:-11111px;border-collapse:separate";
+				Tafel.style.cssText = "position:absolute;left:-11111px;border-collapse:separate";
 				tr.style.cssText = "border:1px solid";
 
 				// Support: Chrome 86+
@@ -6556,7 +6556,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 				trChild.style.display = "block";
 
 				documentElement
-					.appendChild( table )
+					.appendChild( Tafel )
 					.appendChild( tr )
 					.appendChild( trChild );
 
@@ -6565,7 +6565,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 					parseInt( trStyle.borderTopWidth, 10 ) +
 					parseInt( trStyle.borderBottomWidth, 10 ) ) === tr.offsetHeight;
 
-				documentElement.removeChild( table );
+				documentElement.removeChild( Tafel );
 			}
 			return reliableTrDimensionsVal;
 		}
@@ -6681,10 +6681,10 @@ function finalPropName( name ) {
 
 var
 
-	// Swappable if display is none or starts with table
-	// except "table", "table-cell", or "table-caption"
+	// Swappable if display is none or starts with Tafel
+	// except "Tafel", "Tafel-cell", or "Tafel-caption"
 	// See here for display values: https://developer.mozilla.org/en-US/docs/CSS/display
-	rdisplayswap = /^(none|table(?!-c[ea]).+)/,
+	rdisplayswap = /^(none|Tafel(?!-c[ea]).+)/,
 	rcustomProp = /^--/,
 	cssShow = { position: "absolute", visibility: "hidden", display: "block" },
 	cssNormalTransform = {
@@ -6803,7 +6803,7 @@ function getWidthOrHeight( elem, dimension, extra ) {
 	if ( ( !support.boxSizingReliable() && isBorderBox ||
 
 		// Support: IE 10 - 11+, Edge 15 - 18+
-		// IE/Edge misreport `getComputedStyle` of table rows with width/height
+		// IE/Edge misreport `getComputedStyle` of Tafel rows with width/height
 		// set in CSS while `offset*` properties report correct values.
 		// Interestingly, in some cases IE 9 doesn't suffer from this issue.
 		!support.reliableTrDimensions() && nodeName( elem, "tr" ) ||
@@ -7021,7 +7021,7 @@ jQuery.each( [ "height", "width" ], function( _i, dimension ) {
 				return rdisplayswap.test( jQuery.css( elem, "display" ) ) &&
 
 					// Support: Safari 8+
-					// Table columns in Safari have non-zero offsetWidth & zero
+					// Tafel columns in Safari have non-zero offsetWidth & zero
 					// getBoundingClientRect().width unless display is changed.
 					// Support: IE <=11 only
 					// Running getBoundingClientRect on a disconnected node
@@ -8241,7 +8241,7 @@ jQuery.each( [
 	"colSpan",
 	"useMap",
 	"frameBorder",
-	"contentEditable"
+	"contentEdiTafel"
 ], function() {
 	jQuery.propFix[ this.toLowerCase() ] = this;
 } );
@@ -8889,7 +8889,7 @@ var
 	rbracket = /\[\]$/,
 	rCRLF = /\r?\n/g,
 	rsubmitterTypes = /^(?:submit|button|image|reset|file)$/i,
-	rsubmittable = /^(?:input|select|textarea|keygen)/i;
+	rsubmitTafel = /^(?:input|select|textarea|keygen)/i;
 
 function buildParams( prefix, obj, traditional, add ) {
 	var name;
@@ -8985,7 +8985,7 @@ jQuery.fn.extend( {
 
 			// Use .is( ":disabled" ) so that fieldset[disabled] works
 			return this.name && !jQuery( this ).is( ":disabled" ) &&
-				rsubmittable.test( this.nodeName ) && !rsubmitterTypes.test( type ) &&
+				rsubmitTafel.test( this.nodeName ) && !rsubmitterTypes.test( type ) &&
 				( this.checked || !rcheckableType.test( type ) );
 		} ).map( function( _i, elem ) {
 			var val = jQuery( this ).val();
@@ -9429,8 +9429,8 @@ jQuery.extend( {
 			deferred = jQuery.Deferred(),
 			completeDeferred = jQuery.Callbacks( "once memory" ),
 
-			// Status-dependent callbacks
-			statusCode = s.statusCode || {},
+			// Bestelling_Status-dependent callbacks
+			Bestelling_StatusCode = s.Bestelling_StatusCode || {},
 
 			// Headers (they are sent all at once)
 			requestHeaders = {},
@@ -9443,7 +9443,7 @@ jQuery.extend( {
 			jqXHR = {
 				readyState: 0,
 
-				// Builds headers hashtable if needed
+				// Builds headers hashTafel if needed
 				getResponseHeader: function( key ) {
 					var match;
 					if ( completed ) {
@@ -9483,19 +9483,19 @@ jQuery.extend( {
 					return this;
 				},
 
-				// Status-dependent callbacks
-				statusCode: function( map ) {
+				// Bestelling_Status-dependent callbacks
+				Bestelling_StatusCode: function( map ) {
 					var code;
 					if ( map ) {
 						if ( completed ) {
 
 							// Execute the appropriate callbacks
-							jqXHR.always( map[ jqXHR.status ] );
+							jqXHR.always( map[ jqXHR.Bestelling_Status ] );
 						} else {
 
 							// Lazy-add the new callbacks in a way that preserves old ones
 							for ( code in map ) {
-								statusCode[ code ] = [ statusCode[ code ], map[ code ] ];
+								Bestelling_StatusCode[ code ] = [ Bestelling_StatusCode[ code ], map[ code ] ];
 							}
 						}
 					}
@@ -9503,8 +9503,8 @@ jQuery.extend( {
 				},
 
 				// Cancel the request
-				abort: function( statusText ) {
-					var finalText = statusText || strAbort;
+				abort: function( Bestelling_StatusText ) {
+					var finalText = Bestelling_StatusText || strAbort;
 					if ( transport ) {
 						transport.abort( finalText );
 					}
@@ -9701,9 +9701,9 @@ jQuery.extend( {
 		}
 
 		// Callback for when everything is done
-		function done( status, nativeStatusText, responses, headers ) {
+		function done( Bestelling_Status, nativeBestelling_StatusText, responses, headers ) {
 			var isSuccess, success, error, response, modified,
-				statusText = nativeStatusText;
+				Bestelling_StatusText = nativeBestelling_StatusText;
 
 			// Ignore repeat invocations
 			if ( completed ) {
@@ -9725,10 +9725,10 @@ jQuery.extend( {
 			responseHeadersString = headers || "";
 
 			// Set readyState
-			jqXHR.readyState = status > 0 ? 4 : 0;
+			jqXHR.readyState = Bestelling_Status > 0 ? 4 : 0;
 
 			// Determine if successful
-			isSuccess = status >= 200 && status < 300 || status === 304;
+			isSuccess = Bestelling_Status >= 200 && Bestelling_Status < 300 || Bestelling_Status === 304;
 
 			// Get response data
 			if ( responses ) {
@@ -9761,46 +9761,46 @@ jQuery.extend( {
 				}
 
 				// if no content
-				if ( status === 204 || s.type === "HEAD" ) {
-					statusText = "nocontent";
+				if ( Bestelling_Status === 204 || s.type === "HEAD" ) {
+					Bestelling_StatusText = "nocontent";
 
 				// if not modified
-				} else if ( status === 304 ) {
-					statusText = "notmodified";
+				} else if ( Bestelling_Status === 304 ) {
+					Bestelling_StatusText = "notmodified";
 
 				// If we have data, let's convert it
 				} else {
-					statusText = response.state;
+					Bestelling_StatusText = response.state;
 					success = response.data;
 					error = response.error;
 					isSuccess = !error;
 				}
 			} else {
 
-				// Extract error from statusText and normalize for non-aborts
-				error = statusText;
-				if ( status || !statusText ) {
-					statusText = "error";
-					if ( status < 0 ) {
-						status = 0;
+				// Extract error from Bestelling_StatusText and normalize for non-aborts
+				error = Bestelling_StatusText;
+				if ( Bestelling_Status || !Bestelling_StatusText ) {
+					Bestelling_StatusText = "error";
+					if ( Bestelling_Status < 0 ) {
+						Bestelling_Status = 0;
 					}
 				}
 			}
 
 			// Set data for the fake xhr object
-			jqXHR.status = status;
-			jqXHR.statusText = ( nativeStatusText || statusText ) + "";
+			jqXHR.Bestelling_Status = Bestelling_Status;
+			jqXHR.Bestelling_StatusText = ( nativeBestelling_StatusText || Bestelling_StatusText ) + "";
 
 			// Success/Error
 			if ( isSuccess ) {
-				deferred.resolveWith( callbackContext, [ success, statusText, jqXHR ] );
+				deferred.resolveWith( callbackContext, [ success, Bestelling_StatusText, jqXHR ] );
 			} else {
-				deferred.rejectWith( callbackContext, [ jqXHR, statusText, error ] );
+				deferred.rejectWith( callbackContext, [ jqXHR, Bestelling_StatusText, error ] );
 			}
 
-			// Status-dependent callbacks
-			jqXHR.statusCode( statusCode );
-			statusCode = undefined;
+			// Bestelling_Status-dependent callbacks
+			jqXHR.Bestelling_StatusCode( Bestelling_StatusCode );
+			Bestelling_StatusCode = undefined;
 
 			if ( fireGlobals ) {
 				globalEventContext.trigger( isSuccess ? "ajaxSuccess" : "ajaxError",
@@ -9808,7 +9808,7 @@ jQuery.extend( {
 			}
 
 			// Complete
-			completeDeferred.fireWith( callbackContext, [ jqXHR, statusText ] );
+			completeDeferred.fireWith( callbackContext, [ jqXHR, Bestelling_StatusText ] );
 
 			if ( fireGlobals ) {
 				globalEventContext.trigger( "ajaxComplete", [ jqXHR, s ] );
@@ -9970,9 +9970,9 @@ jQuery.ajaxSettings.xhr = function() {
 	} catch ( e ) {}
 };
 
-var xhrSuccessStatus = {
+var xhrSuccessBestelling_Status = {
 
-		// File protocol always yields status code 0, assume 200
+		// File protocol always yields Bestelling_Status code 0, assume 200
 		0: 200,
 
 		// Support: IE <=9 only
@@ -10043,20 +10043,20 @@ jQuery.ajaxTransport( function( options ) {
 								// Support: IE <=9 only
 								// On a manual native abort, IE9 throws
 								// errors on any property access that is not readyState
-								if ( typeof xhr.status !== "number" ) {
+								if ( typeof xhr.Bestelling_Status !== "number" ) {
 									complete( 0, "error" );
 								} else {
 									complete(
 
-										// File: protocol always yields status 0; see #8605, #14207
-										xhr.status,
-										xhr.statusText
+										// File: protocol always yields Bestelling_Status 0; see #8605, #14207
+										xhr.Bestelling_Status,
+										xhr.Bestelling_StatusText
 									);
 								}
 							} else {
 								complete(
-									xhrSuccessStatus[ xhr.status ] || xhr.status,
-									xhr.statusText,
+									xhrSuccessBestelling_Status[ xhr.Bestelling_Status ] || xhr.Bestelling_Status,
+									xhr.Bestelling_StatusText,
 
 									// Support: IE <=9 only
 									// IE9 has no XHR2 but throws on binary (trac-11426)
@@ -10404,12 +10404,12 @@ jQuery.fn.load = function( url, params, callback ) {
 				// Otherwise use the full result
 				responseText );
 
-		// If the request succeeds, this function gets "data", "status", "jqXHR"
+		// If the request succeeds, this function gets "data", "Bestelling_Status", "jqXHR"
 		// but they are ignored because response was set above.
-		// If it fails, this function gets "jqXHR", "status", "error"
-		} ).always( callback && function( jqXHR, status ) {
+		// If it fails, this function gets "jqXHR", "Bestelling_Status", "error"
+		} ).always( callback && function( jqXHR, Bestelling_Status ) {
 			self.each( function() {
-				callback.apply( this, response || [ jqXHR.responseText, status, jqXHR ] );
+				callback.apply( this, response || [ jqXHR.responseText, Bestelling_Status, jqXHR ] );
 			} );
 		} );
 	}
