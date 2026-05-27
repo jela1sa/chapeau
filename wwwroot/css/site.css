@@ -97,6 +97,31 @@ body {
 
 
 
+.fa-wine-glass {
+    border-color: black;
+}
+
+.fa-wine-glass.green {
+        color: #2ecc71;
+    }
+
+.fa-wine-glass.red {
+        color: #e74c3c;
+    }
+
+.fa-wine-glass.purple {
+        color: purple;
+    }
+
+.fa-wine-glass.orange {
+        color: orange;
+    }
+
+.fa-wine-glass.yellow {
+        color: khaki;
+    }
+
+
 .textp1 {
     margin-left: 150px;
     max-width: 200px;

@@ -27,6 +27,15 @@
 						   		Tafel.bestelling_status == "geserveerd" ? "green" :
 						   		"red")">
 			    </div>
+
+			<div class="fa-solid fa-wine-glass
+			    @(Tafel.drink_status == "nog_niet_besteld" ? "red" :
+						   		Tafel.drink_status == "besteld" ? "purple" :
+						   		Tafel.drink_status == "in_bereiding" ? "orange" :
+						   		Tafel.drink_status == "gereed" ? "yellow" :
+						   		Tafel.drink_status == "geserveerd" ? "green" :
+						   		"red")">
+			    </div>
 		</div>
 
 			<div class="Tafel-number">

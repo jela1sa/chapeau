@@ -19,7 +19,7 @@ namespace Chapeau.Repositories
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SELECT Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status
+                string query = @"SELECT Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status, Bestelling.drink_status
                                  FROM Tafel JOIN Bestelling ON Tafel.tafel_ID = Bestelling.tafel_ID
                                  ORDER BY Tafel.tafel_ID";
 
@@ -36,13 +36,15 @@ namespace Chapeau.Repositories
                     int aantal_stoelen = reader.GetInt32(2);
                     string status = reader.GetString(3);
                     string bestelling_status = reader.GetString(4);
+                    string drink_status = reader.GetString(5);
 
                     Tafel tafel = new Tafel(
                         tafel_ID,
                         tafel_nummer,
                         aantal_stoelen,
                         status,
-                        bestelling_status
+                        bestelling_status,
+                        drink_status
                     );
 
                     tafels.Add(tafel);
@@ -58,7 +60,7 @@ namespace Chapeau.Repositories
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SELECT Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status
+                string query = @"SELECT Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status, Bestelling.drink_status
                                  FROM Tafel JOIN Bestelling ON Tafel.tafel_ID = Bestelling.tafel_ID
                                  WHERE Tafel.tafel_ID = @tafel_ID";
 
@@ -77,13 +79,15 @@ namespace Chapeau.Repositories
                     int aantal_stoelen = reader.GetInt32(2);
                     string status = reader.GetString(3);
                     string bestelling_status = reader.GetString(4);
+                    string drink_status= reader.GetString(5);
 
                     tafel = new Tafel(
                         id,
                         tafel_nummer,
                         aantal_stoelen,
                         status,
-                        bestelling_status
+                        bestelling_status,
+                        drink_status
                     );
                 }
             }
@@ -160,12 +164,14 @@ namespace Chapeau.Repositories
                 }
 
                 string bestellingQuery = @"UPDATE Bestelling
-                                   SET bestelling_status = @bestelling_status
+                                   SET bestelling_status = @bestelling_status,
+                                        drink_status = @drink_status
                                    WHERE tafel_ID = @tafel_ID";
 
                 SqlCommand command2 = new SqlCommand(bestellingQuery, connection);
                 command2.Parameters.AddWithValue("@tafel_ID", tafel.Tafel_ID);
                 command2.Parameters.AddWithValue("@bestelling_status", tafel.bestelling_status);
+                command2.Parameters.AddWithValue("@drink_status", tafel.drink_status);
 
                 int nrOfRowsAffected2 = command2.ExecuteNonQuery();
 

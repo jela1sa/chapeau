@@ -9,19 +9,21 @@
         public int Aantal_stoelen { get; set; }
         public string Status { get; set; }
         public string bestelling_status { get; set; }
+        public string drink_status { get; set; }
 
         public Tafel()
         {
 
         }
 
-        public Tafel(int tafel_ID, string tafel_nummer, int aantal_stoelen, string status, string bestelling_status)
+        public Tafel(int tafel_ID, string tafel_nummer, int aantal_stoelen, string status, string bestelling_status, string drink_status)
         {
             Tafel_ID = tafel_ID;
             Tafel_Nummer = tafel_nummer;
             Aantal_stoelen = aantal_stoelen;
             Status = status;
             this.bestelling_status = bestelling_status;
+            this.drink_status = drink_status;
         }
     }
 }
