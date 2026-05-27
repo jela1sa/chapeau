@@ -7,7 +7,7 @@ namespace Chapeau.Models
        
 
         [Key]
-        public int Item_id { get; set; }
+        public string Item_id { get; set; }
 
         public string Naam { get; set; }
 
@@ -22,7 +22,7 @@ namespace Chapeau.Models
         public virtual ICollection<BestellingItem> BestellingItems { get; set; }
 
 
-        public MenuItem(int item_id, string naam, string beschrijving, decimal prijs, string categorie, decimal btw_tarief, ICollection<BestellingItem> BestellingItems)
+        public MenuItem(string item_id, string naam, string beschrijving, decimal prijs, string categorie, decimal btw_tarief, ICollection<BestellingItem> BestellingItems)
         {
             Item_id = item_id;
             Naam = naam;
@@ -31,6 +31,16 @@ namespace Chapeau.Models
             Categorie = categorie;
             Btw_tarief = btw_tarief;
             BestellingItems = BestellingItems;
+        }
+        
+        public MenuItem(string item_id, string naam, string beschrijving, decimal prijs, string categorie, decimal btw_tarief)
+        {
+            Item_id = item_id;
+            Naam = naam;
+            Beschrijving = beschrijving;
+            Prijs = prijs;
+            Categorie = categorie;
+            Btw_tarief = btw_tarief;
         }
     }
 

@@ -6,6 +6,7 @@
 }
 
 <div class="Tafel-grid">
+	<script src="https://kit.fontawesome.com/77ffac2dfb.js" crossorigin="anonymous"></script>
 	@foreach (var Tafel in Model)
 	{
 		<div class="Tafel-card">
@@ -18,7 +19,7 @@
 						   		"green")">
 								   			</div>
 
-			<div class="Bestelling_Status-square
+			<div class="fa-solid fa-bowl-food
 			    @(Tafel.bestelling_status == "nog_niet_besteld" ? "red" :
 						   		Tafel.bestelling_status == "besteld" ? "purple" :
 						   		Tafel.bestelling_status == "in_bereiding" ? "orange" :
