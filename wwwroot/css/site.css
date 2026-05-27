@@ -49,14 +49,11 @@ body {
     height: 14px;
     border-radius: 50%;
 }
-.Bestelling_Status-square {
-    width: 14px;
-    height: 14px;
-}
 
-    .Bestelling_Status-circle.green {
-        background-color: #2ecc71;
-    }
+
+.Bestelling_Status-circle.green {
+    background-color: #2ecc71;
+}
 
     .Bestelling_Status-circle.red {
         background-color: #e74c3c;
@@ -75,24 +72,27 @@ body {
     }
 
 
-.Bestelling_Status-square.green {
-    background-color: #2ecc71;
+.fa-bowl-food{
+    border-color: black;
 }
 
-.Bestelling_Status-square.red {
-    background-color: #e74c3c;
+.fa-bowl-food.green {
+    color: #2ecc71;
+}
+.fa-bowl-food.red {
+    color: #e74c3c;
 }
 
-.Bestelling_Status-square.purple {
-    background-color: purple;
+.fa-bowl-food.purple {
+    color: purple;
 }
 
-.Bestelling_Status-square.orange {
-    background-color: orange;
+.fa-bowl-food.orange {
+    color: orange;
 }
 
-.Bestelling_Status-square.yellow {
-    background-color: yellow;
+.fa-bowl-food.yellow {
+    color: khaki;
 }
 
 
