@@ -5,25 +5,23 @@
     ViewData["Title"] = "Acount";
     Medewerker? loggedInMedewerker = (Medewerker?)ViewData["LoggedInMedewerker"];
 }
-<h1>My Account</h1>
-
-@* @if (loggedInMedewerker != null)
-{
-    <div class="card p-3">
-        <p>ID: @loggedInMedewerker.bediening_ID</p>
-        <p>Name: @loggedInMedewerker.naam</p>
-        <p>Role: @loggedInMedewerker.rol</p>
-        <p>Username: @loggedInMedewerker.gebruikersnaam</p>
-    </div>
+<h1>Mijn Account</h1>
 
 
-}
-else
-{
-    <div class="alert alert-danger">
-        No logged in user found.
-    </div>
-} *@
+<p>
+    Naam:
+    @User.FindFirst("FullName")?.Value
+</p>
+
+<p>
+    Rol:
+    @User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value
+</p>
+
+<p>
+    Gebruikersnaam:
+    @User.Identity.Name
+</p>
 <form action="/Login/Logoff" method="post">
 
     <button type="submit"
