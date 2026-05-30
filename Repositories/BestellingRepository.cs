@@ -122,7 +122,7 @@ namespace Chapeau.Repositories
                             }
 
                             MenuItem menuItem = new MenuItem(
-                                Convert.ToInt32(reader["item_id"]),
+                                reader["item_id"].ToString(),
                                 reader["naam"].ToString(),
                                 reader["beschrijving"].ToString(),
                                 Convert.ToDecimal(reader["prijs"]),

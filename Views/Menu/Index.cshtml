@@ -1,0 +1,65 @@
+@model IEnumerable<Chapeau.ViewModels.MenuItemStockViewModel>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Menu";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+ 
+</head>
+<body>
+<title>Menu</title>
+    
+<div class="btn-group mb-3">
+
+    <a class="btn btn-primary" href="/Menu?cardFilter=all&categoryFilter=all">Alles</a>
+    <a class="btn btn-primary" href="/Menu?cardFilter=dinner&categoryFilter=all">Diner</a>
+    <a class="btn btn-primary" href="/Menu?cardFilter=lunch&categoryFilter=all">Lunch</a>
+    <a class="btn btn-primary" href="/Menu?cardFilter=drank&categoryFilter=all">Drinks</a>
+
+</div>
+
+<div class="btn-group mb-3">
+
+    <a class="btn btn-outline-secondary" href="/Menu?cardFilter=all&categoryFilter=hoofdgerecht">Hoofdgerecht</a>
+    <a class="btn btn-outline-secondary" href="/Menu?cardFilter=all&categoryFilter=nagerecht">Nagerecht</a>
+    <a class="btn btn-outline-secondary" href="/Menu?cardFilter=all&categoryFilter=tussengerecht">Tussengerecht</a>
+
+</div>
+    
+<div class="d-flex flex-wrap gap-3">
+
+    @foreach (var item in Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+
+                <h5 class="card-title">@item.MenuItem.Naam</h5>
+                <p class="card-text">€ @item.MenuItem.Prijs</p>
+
+                @if (item.Voorraad == null || item.Voorraad.Hoeveelheid == 0)
+                {
+                    <span class="badge bg-danger">Out of stock</span>
+                }
+                else if (item.Voorraad.Hoeveelheid <= 10)
+                {
+                    <span class="badge bg-warning text-dark">Almost out of stock</span>
+                }
+                else
+                {
+                    <span class="badge bg-success">In stock</span>
+                }
+
+            </div>
+        </div>
+    }
+
+</div>
+
+</body>
+</html>

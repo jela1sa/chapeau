@@ -50,9 +50,10 @@ body {
     border-radius: 50%;
 }
 
-    .Bestelling_Status-circle.green {
-        background-color: #2ecc71;
-    }
+
+.Bestelling_Status-circle.green {
+    background-color: #2ecc71;
+}
 
     .Bestelling_Status-circle.red {
         background-color: #e74c3c;
@@ -71,13 +72,63 @@ body {
     }
 
 
+.fa-bowl-food{
+    border-color: black;
+}
+
+.fa-bowl-food.green {
+    color: #2ecc71;
+}
+.fa-bowl-food.red {
+    color: #e74c3c;
+}
+
+.fa-bowl-food.purple {
+    color: purple;
+}
+
+.fa-bowl-food.orange {
+    color: orange;
+}
+
+.fa-bowl-food.yellow {
+    color: khaki;
+}
+
+
+
+.fa-wine-glass {
+    border-color: black;
+}
+
+.fa-wine-glass.green {
+        color: #2ecc71;
+    }
+
+.fa-wine-glass.red {
+        color: #e74c3c;
+    }
+
+.fa-wine-glass.purple {
+        color: purple;
+    }
+
+.fa-wine-glass.orange {
+        color: orange;
+    }
+
+.fa-wine-glass.yellow {
+        color: khaki;
+    }
+
+
 .textp1 {
     margin-left: 150px;
-    max-width: 150px;
+    max-width: 200px;
 }
 
 .textp2 {
-    max-width: 150px;
+    max-width: 200px;
     margin-left: 30px;
 }
 
