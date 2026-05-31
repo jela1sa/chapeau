@@ -10,9 +10,12 @@ namespace Chapeau.Controllers
     public class TafelController : Controller
     {
         private readonly ITafelRepository _TafelsRepository;
-        public TafelController(ITafelRepository TafelsRepository)
+        private readonly IBestellingRepository _bestellingRepository;
+
+        public TafelController(ITafelRepository TafelsRepository, IBestellingRepository bestellingRepository)
         {
             _TafelsRepository = TafelsRepository;
+            _bestellingRepository = bestellingRepository;
         }
         public IActionResult Index()
         {
@@ -48,5 +51,8 @@ namespace Chapeau.Controllers
                 return View(Tafel);
             }
         }
+
+       
+        
     }
 }

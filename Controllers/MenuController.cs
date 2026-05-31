@@ -15,11 +15,11 @@ public class MenuController : Controller
     }
 
     [HttpGet]
-    public IActionResult Index(string cardFilter = "all",
-        string categoryFilter = "all")
+    public IActionResult Index(int bestellingId, string cardFilter = "all", string categoryFilter = "all")
     {
-        List<MenuItemStockViewModel> items = _menusRepository
-            .GetMenuWithStock(cardFilter, categoryFilter);
+        ViewBag.BestellingId = bestellingId;
+
+        var items = _menusRepository.GetMenuWithStock(cardFilter, categoryFilter);
 
         return View(items);
     }

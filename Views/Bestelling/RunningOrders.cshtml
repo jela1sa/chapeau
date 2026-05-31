@@ -1,10 +1,16 @@
 ﻿@model List<Chapeau.Models.Bestelling>
 
-<a asp-action="RunningOrders"class="btn btn-primary">Running Orders</a>
 
-<a asp-action="FinishedOrders" class="btn btn-secondary">Finished Orders Today</a>
+<a asp-action="FinishedOrders" class="btn btn-secondary">Finished Orders</a>
+
 
 <h1>Running Orders</h1>
+
+<a asp-action="RunningOrders" asp-route-type="all" class="btn btn-primary">Alles</a>
+
+<a asp-action="RunningOrders" asp-route-type="kitchen" class="btn btn-warning">Keuken</a>
+
+<a asp-action="RunningOrders" asp-route-type="bar" class="btn btn-info">Bar</a>
 
 <form method="get"><button type="submit">Refresh</button></form>
 
@@ -93,6 +99,7 @@
                                         <select name="status">
                                             <option value="open">open</option>
                                             <option value="gereed">gereed</option>
+                                            <option value="in_bereiding">in_bereiding</option>
                                         </select>
 
                                         <button type="submit">Update item</button>
@@ -102,39 +109,6 @@
                         </ul>
                     }
 
-                    @foreach (var categorie in order.BestellingsRondes
-                                    .Where(x => x.MenuItem != null)
-                                    .GroupBy(x => x.MenuItem.Categorie))
-                    {
-                        <h5>@categorie.Key</h5>                     
-                        <ul>
-                            @foreach (var item in categorie)
-                            {
-                             <li>
-                                    @item.Aantal x @item.MenuItem.Naam
-                                    (<strong>@item.BestellingsRonde_Status</strong>)
-
-                                    @if (!string.IsNullOrEmpty(item.Opmerkingen))
-                                    {
-                                        <span> - @item.Opmerkingen</span>
-                                    }
-
-                                    <form asp-action="UpdateItemStatus" method="post">
-                                        <input type="hidden"
-                                               name="bestellingsRondeId"
-                                               value="@item.BestellingsRonde_ID" />
-
-                                        <select name="status">
-                                            <option value="open">open</option>
-                                            <option value="gereed">gereed</option>
-                                        </select>
-
-                                        <button type="submit">OK</button>
-                                    </form>
-                             </li>
-                            }
-                        </ul>
-                    }
 
                 </td>
             </tr>
