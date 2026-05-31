@@ -1,17 +1,20 @@
 ﻿@model List<Chapeau.Models.Bestelling>
 
+<a asp-action="RunningOrders"class="btn btn-primary">Running Orders</a>
+
+<a asp-action="FinishedOrders" class="btn btn-secondary">Finished Orders Today</a>
+
 <h1>Running Orders</h1>
 
-<form method="get">
-    <button type="submit">Refresh</button>
-</form>
-<table class="table">
+<form method="get"><button type="submit">Refresh</button></form>
+
+<table class="table table-bordered">
     <thead>
         <tr>
-            <th>Bestelling</th>
+            <th>Order</th>
             <th>Tafel</th>
             <th>Status</th>
-            <th>Order tijd</th>
+            <th>Tijd</th>
             <th>Wachttijd</th>
         </tr>
     </thead>
@@ -22,9 +25,118 @@
             <tr>
                 <td>@order.Bestelling_ID</td>
                 <td>@order.TafelNummer</td>
-                <td>@order.Bestelling_Status</td>
+
+                <td>
+                    <strong>@order.Bestelling_Status</strong>
+
+                    <form asp-action="UpdateOrderStatus" method="post">
+                     <input type="hidden" name="bestellingId" value="@order.Bestelling_ID" />
+
+                        <select name="status">
+                            <option value="opgenomen">opgenomen</option>
+                            <option value="in_bereiding">in_bereiding</option>
+                            <option value="gereed">gereed</option>
+                            <option value="geserveerd">geserveerd</option>
+                        </select>
+
+                        <button type="submit">OK</button>
+                    </form>
+                </td>
+
                 <td>@order.Datum_Tijd</td>
-                <td>@order.Wachttijd minuten</td>
+                <td>@order.Wachttijd min</td>
+            </tr>
+
+            <tr>
+                <td colspan="5">
+                    @foreach (var categorie in order.BestellingsRondes
+                                    .Where(x => x.MenuItem != null)
+                                    .GroupBy(x => x.MenuItem.Categorie))
+                    {
+                        <h5>@categorie.Key</h5>                                                     
+                        <form asp-action="UpdateCourseStatus" method="post">
+
+                            <input type="hidden"
+                                   name="bestellingId"
+                                   value="@order.Bestelling_ID" />
+
+                            <input type="hidden"
+                                   name="categorie"
+                                   value="@categorie.Key" />
+
+                            <select name="status">
+                                <option value="open">open</option>
+                                <option value="in_bereiding">in_bereiding</option>
+                                <option value="gereed">gereed</option>
+                            </select>
+
+                            <button type="submit">Update categorie</button>
+                        </form>
+
+                        <ul>
+                            @foreach (var item in categorie)
+                            {
+                                <li>
+                                    @item.Aantal x @item.MenuItem.Naam
+                                    (<strong>@item.BestellingsRonde_Status</strong>)
+
+                                    @if (!string.IsNullOrEmpty(item.Opmerkingen))
+                                    {
+                                        <span> - @item.Opmerkingen</span>
+                                    }
+
+                                    <form asp-action="UpdateItemStatus" method="post">
+                                        <input type="hidden"
+                                               name="bestellingsRondeId"
+                                               value="@item.BestellingsRonde_ID" />
+
+                                        <select name="status">
+                                            <option value="open">open</option>
+                                            <option value="gereed">gereed</option>
+                                        </select>
+
+                                        <button type="submit">Update item</button>
+                                    </form>
+                                </li>
+                            }
+                        </ul>
+                    }
+
+                    @foreach (var categorie in order.BestellingsRondes
+                                    .Where(x => x.MenuItem != null)
+                                    .GroupBy(x => x.MenuItem.Categorie))
+                    {
+                        <h5>@categorie.Key</h5>                     
+                        <ul>
+                            @foreach (var item in categorie)
+                            {
+                             <li>
+                                    @item.Aantal x @item.MenuItem.Naam
+                                    (<strong>@item.BestellingsRonde_Status</strong>)
+
+                                    @if (!string.IsNullOrEmpty(item.Opmerkingen))
+                                    {
+                                        <span> - @item.Opmerkingen</span>
+                                    }
+
+                                    <form asp-action="UpdateItemStatus" method="post">
+                                        <input type="hidden"
+                                               name="bestellingsRondeId"
+                                               value="@item.BestellingsRonde_ID" />
+
+                                        <select name="status">
+                                            <option value="open">open</option>
+                                            <option value="gereed">gereed</option>
+                                        </select>
+
+                                        <button type="submit">OK</button>
+                                    </form>
+                             </li>
+                            }
+                        </ul>
+                    }
+
+                </td>
             </tr>
         }
     </tbody>
