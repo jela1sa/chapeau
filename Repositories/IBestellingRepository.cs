@@ -11,5 +11,6 @@ namespace Chapeau.Repositories
         void UpdateItemStatus(int bestellingsRondeId, string status);
         void UpdateCourseStatus(int bestellingId, string categorie, string status);
         List<Bestelling> GetFinishedOrders();
+        Bestelling GetbestellingByTafel(int Tafel_ID);
     }
 }

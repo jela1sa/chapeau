@@ -14,7 +14,7 @@ namespace Chapeau.Services
 
         public BetalingViewModel GetBetalingDetails(int Tafel_ID)
         {
-            var order = _repository.GetOrderByTafel(Tafel_ID);
+            var order = _repository.GetbestellingByTafel(Tafel_ID);
 
             if (order == null)
                 return null;

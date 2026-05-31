@@ -34,21 +34,19 @@ namespace Chapeau.Controllers
         public ActionResult Login(LoginModel loginModel)
         {
             
-            /*//get user (from repository/databas) matching username and password
-            Medewerker? medewerker = _usersService.GetByLoginCredentials(loginModel.gebruikersnaam, loginModel.wachtwoord);
-            //user will prob become bediening or employee
-            ClaimsPrincipal medewerkers = HttpContext.User;
+            //get user (from repository/databas) matching username and password
+            Medewerker? medewerker = _medewerkersService.GetByLoginCredentials(loginModel.gebruikersnaam, loginModel.wachtwoord);
             if (medewerker == null)
             {
                 ViewBag.ErrorMessage = "Incorrect username or password combination!";
                 return View("Login");
             }
-                HttpContext.Session.SetObject("LoggedInMedewerker", medewerker);
-                return RedirectToAction("Index", "Tafel");*/
             List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, loginModel.bediening_ID.ToString()),
-                new Claim(ClaimTypes.Name, loginModel.gebruikersnaam)
+                new Claim(ClaimTypes.NameIdentifier, medewerker.bediening_ID.ToString()),
+                new Claim(ClaimTypes.Name, medewerker.gebruikersnaam),
+                new Claim(ClaimTypes.Role, medewerker.rol),
+                new Claim("FullName", medewerker.naam)
             };
             ClaimsIdentity identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
