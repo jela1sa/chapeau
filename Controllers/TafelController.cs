@@ -20,10 +20,6 @@ namespace Chapeau.Controllers
             return View(Tafels);
         }
 
-        /*public IActionResult Edit()
-        {
-            return View();
-        }*/
         public ActionResult Edit(int? id)
         {
             if (id == null)
