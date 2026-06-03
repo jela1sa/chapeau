@@ -1,4 +1,5 @@
 ﻿using Chapeau.Models;
+using Chapeau.ViewModels;
 using Microsoft.Data.SqlClient;
 
 namespace Chapeau.Repositories
@@ -6,10 +7,13 @@ namespace Chapeau.Repositories
     public class BestellingRepository : IBestellingRepository
     {
         private readonly string _connectionString;
+        private DbMenusRepository _dbMenusRepository;
 
-        public BestellingRepository(IConfiguration configuration)
+
+        public BestellingRepository(IConfiguration configuration, DbMenusRepository _dbMenusRepository)
         {
             _connectionString = configuration.GetConnectionString("ChapeauDatabase");
+            _dbMenusRepository = this._dbMenusRepository;
         }
 
         public List<Bestelling> GetRunningOrders()
@@ -145,6 +149,60 @@ namespace Chapeau.Repositories
             }
 
             return order;
+        }
+
+        public List<BestellingItemViewModel> GetOrderItems(int orderId)
+        {
+            List<BestellingItemViewModel> orderItems = new();
+
+            string query = @"
+                SELECT
+                    oi.MenuItemId,
+                    mi.Naam,
+                    mi.Prijs,
+                    oi.Quantity
+                FROM OrderItems oi
+                INNER JOIN MenuItem mi
+                    ON oi.MenuItemId = mi.Id
+                WHERE oi.OrderId = @OrderId
+            ";
+
+            using SqlConnection connection = new SqlConnection(_connectionString);
+            using SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@OrderId", orderId);
+
+            connection.Open();
+
+            using SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                orderItems.Add(new BestellingItemViewModel()
+                {
+                    MenuItemId = (int)reader["MenuItemId"],
+                    Naam = reader["Naam"].ToString(),
+                    Prijs = (decimal)reader["Prijs"],
+                    Aantal = (int)reader["Quantity"]
+                });
+            }
+
+            return orderItems;
+        }
+
+        public void AddItemToOrder(int orderId, int menuItemId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SubmitOrder(int orderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<MenuItemStockViewModel> GetMenuItems(string cardFilter, string categoryFilter)
+        {
+            return _dbMenusRepository.GetMenuWithStock(cardFilter, categoryFilter);
         }
     }
 }

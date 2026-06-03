@@ -9,8 +9,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="066e1fad-9e22-45c0-b8e1-5265fc710060" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Chapeau/.idea/shelf/Uncommitted_changes_before_Merge_at_26_05_2026,_11_30_[Changes]1/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Chapeau/.idea/shelf/Uncommitted_changes_before_Merge_at_26_05_2026__11_30__Changes_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Chapeau/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Chapeau/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/BestellingRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/BestellingRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Repositories/IBestellingRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Repositories/IBestellingRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,13 +41,16 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Controllers/MenuController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Models/ErrorViewModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Users/mayowa/Documents/RiderProjects/Project Chapeau/Chapeau/Models/MenuItem.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Users/mayowa/Documents/RiderProjects/Project Chapeau/Chapeau/Models/MenuItem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Models/MenuItem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Models/Voorraad.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Repositories/DbMenusRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ViewModels/BestellingItemViewModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ViewModels/BestellingOpnemenViewModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/ViewModels/MenuItemStockViewModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/13dc2b82f180e129c1f1186d422e1ed4122e23e1e1f265941fb7d2d3e1ce2/IActionResult.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ccd5471bcfa956aa7e0c547d6795895a1919119dc282d9d4fec3766fd8df/AuthorizeAttribute.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/cc62364a2aeba5ac3bffd88882924585b2dfa3fde6aa5b5be373c35eefe50eb/SelectListItem.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/fae1ca15f8a3853345929881f78bb99b675cd49e3cb6724dbc33b47e02077/HtmlHelperSelectExtensions.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -157,6 +163,8 @@
       <workItem from="1779276737146" duration="7129000" />
       <workItem from="1779306718579" duration="8768000" />
       <workItem from="1779876424681" duration="249000" />
+      <workItem from="1779880049755" duration="400000" />
+      <workItem from="1780467391444" duration="10393000" />
     </task>
     <task id="LOCAL-00001">
       <option name="closed" value="true" />
