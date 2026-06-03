@@ -79,7 +79,25 @@ namespace Chapeau.Controllers
             return View(bestellings);
         }
 
-        
+        [HttpPost] // Voor Mayowa
+        public IActionResult CreateBestelling(int tafelId)
+        {
+            int bedieningId = 12; // tijdelijk
+
+            int bestellingId = _bestellingRepository.CreateBestelling( tafelId, bedieningId);
+
+            return RedirectToAction("Index", "Menu", new { bestellingId });
+        }
+
+        [HttpPost] // Voor Mayowa
+        public IActionResult AddItemToOrder(int bestellingId, string itemId, int aantal)
+        {
+            _bestellingRepository.AddItemToOrder(bestellingId, itemId,  aantal);
+
+            return RedirectToAction("Index", "Menu", new { bestellingId });
+        }
+
+
 
     }
 }
