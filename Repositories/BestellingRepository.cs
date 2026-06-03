@@ -269,47 +269,7 @@ namespace Chapeau.Repositories
 
             return bestellingen;
         }
-        public int CreateBestelling(int tafelId, int bedieningId)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-
-                string query = @"INSERT INTO Bestelling (tafel_ID, bediening_ID, datum_tijd, bestelling_status, tijdstip_opgegeven, drink_status)
-            VALUES 
-            (@tafelId, @bedieningId, GETDATE(), 'opgenomen', CONVERT(time, GETDATE()), 'nog_niet_besteld');
-            SELECT SCOPE_IDENTITY();";
-
-                SqlCommand command = new SqlCommand(query, connection);
-
-                command.Parameters.AddWithValue("@tafelId", tafelId);
-                command.Parameters.AddWithValue("@bedieningId", bedieningId);
-
-                int newId = Convert.ToInt32(command.ExecuteScalar());
-
-                return newId;
-            }
-        }
-
-        public void AddItemToOrder(int bestellingId, string itemId, int aantal)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = @"
-        INSERT INTO bestellingsRonde (bestelling_ID, item_ID, aantal, bestellingsronde_status)
-        VALUES (@bestellingId, @itemId, @aantal, 'open')";
-
-                SqlCommand cmd = new SqlCommand(query, connection);
-
-                cmd.Parameters.AddWithValue("@bestellingId", bestellingId);
-                cmd.Parameters.AddWithValue("@itemId", itemId);
-                cmd.Parameters.AddWithValue("@aantal", aantal);
-
-                connection.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
+        
         public Bestelling GetbestellingByTafel(int Tafel_ID)
         {
             Bestelling order = null;

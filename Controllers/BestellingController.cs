@@ -79,37 +79,8 @@ namespace Chapeau.Controllers
             return View(bestellings);
         }
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
+        
 
-        [HttpPost]
-        public IActionResult Create(int tafelId, int bedieningId)
-        {
-            _bestellingRepository.CreateBestelling(tafelId, bedieningId);
-
-            return RedirectToAction("RunningOrders");
-        }
-
-        [HttpPost]
-        public IActionResult CreateBestelling(int tafelId)
-        {
-            int bedieningId = 24; 
-
-            int bestellingId = _bestellingRepository.CreateBestelling(tafelId, bedieningId);
-
-            return RedirectToAction("Index", "Menu", new { bestellingId });
-        }
-
-        [HttpPost]
-        public IActionResult AddItemToOrder(int bestellingId, string itemId, int aantal)
-        {
-            _bestellingRepository.AddItemToOrder(bestellingId, itemId, aantal);
-
-            return RedirectToAction("Index", "Menu", new { bestellingId });
-        }
     }
 }
 

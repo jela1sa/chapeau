@@ -10,10 +10,9 @@ namespace Chapeau.Repositories
         void UpdateOrderStatus(int bestellingId, string status);
         void UpdateItemStatus(int bestellingsRondeId, string status);
         void UpdateCourseStatus(int bestellingId, string categorie, string status);
-        void AddItemToOrder(int bestellingId, string itemId, int aantal);
         List<Bestelling> GetFinishedOrders();
         List<Bestelling> GetKitchenOrders();
         List<Bestelling> GetBarOrders();
-        int CreateBestelling(int tafelId, int bedieningId);
+       
     }
 }

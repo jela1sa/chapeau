@@ -76,16 +76,20 @@
 		<button type="submit" class="btn btn-primary">Update</button>
 	</div>
 
-	@*
-		Hier de knop naar het eten bestellen view (voor mayowa)
-	*@
-
 	<div class="mt-3">
 		<a href="/Tafel/Index">Back to overview</a>
 	</div>
 </form>
 
 
+
+<form action="/Bestelling/CreateBestelling" method="post">
+
+	<input type="hidden" name="tafelId" value="@Model.Tafel_ID" />
+
+	<button type="submit" class="btn btn-success mt-2">+ Nieuwe bestelling </button>
+
+</form>
 
 @*<div class="form-group py-2">
 		<label for="Bestelling_Status">Bestelling_Status:</label>
