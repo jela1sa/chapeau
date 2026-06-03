@@ -1,0 +1,31 @@
+﻿
+@model List<Chapeau.Models.Bestelling>
+
+<a asp-action="RunningOrders" class="btn btn-primary">Running Orders</a>
+
+<h1>Finished Orders Today</h1>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Order</th>
+            <th>Tafel</th>
+            <th>Status</th>
+            <th>Tijd</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Bestelling_ID</td>
+                <td>@order.TafelNummer</td>
+                <td>@order.Bestelling_Status</td>
+                <td>@order.Datum_Tijd</td>
+            </tr>
+        }
+    </tbody>
+</table>

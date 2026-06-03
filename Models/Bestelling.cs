@@ -1,4 +1,6 @@
-﻿namespace Chapeau.Models
+﻿using Chapeau.ViewModels;
+
+namespace Chapeau.Models
 {
     public class Bestelling
     {
@@ -13,7 +15,9 @@
         public int Wachttijd { get; set; }
         public virtual ICollection<BestellingItem> BestellingItems { get; set; }
         public TimeOnly Tijdstip_Opgenomen { get; set; } = new TimeOnly();
-        
+        public List<BestellingsRonde> BestellingsRondes { get; set; }
+        public List<CategorieGroepViewModel> Categories { get; set; }
+
 
         public Bestelling()
         {

@@ -19,8 +19,13 @@ namespace Chapeau.Repositories
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SELECT DISTINCT Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status, Bestelling.drink_status
-                                 FROM Tafel JOIN Bestelling ON Tafel.tafel_ID = Bestelling.tafel_ID
+                string query = @"SELECT Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status, Bestelling.drink_status
+                                FROM Tafel
+                                LEFT JOIN Bestelling ON Bestelling.bestelling_ID =
+                                (SELECT TOP 1 bestelling_ID
+                                 FROM Bestelling
+                                 WHERE tafel_ID = Tafel.tafel_ID
+                                 ORDER BY bestelling_ID DESC)
                                  ORDER BY Tafel.tafel_ID";
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -60,7 +65,7 @@ namespace Chapeau.Repositories
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SELECT Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status, Bestelling.drink_status
+                string query = @"SELECT Distinct Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status, Bestelling.drink_status
                                  FROM Tafel JOIN Bestelling ON Tafel.tafel_ID = Bestelling.tafel_ID
                                  WHERE Tafel.tafel_ID = @tafel_ID";
 
@@ -79,7 +84,7 @@ namespace Chapeau.Repositories
                     int aantal_stoelen = reader.GetInt32(2);
                     string status = reader.GetString(3);
                     string bestelling_status = reader.GetString(4);
-                    string drink_status= reader.GetString(5);
+                    string drink_status = reader.GetString(5);
 
                     tafel = new Tafel(
                         id,
