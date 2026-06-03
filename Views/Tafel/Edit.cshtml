@@ -37,7 +37,7 @@
 	</div>
 
 	@{
-		var statusList = new List<SelectListItem>
+		List<SelectListItem> statusList = new List<SelectListItem>
 		{
 		new SelectListItem { Text = "nog niet besteld", Value = "nog_niet_besteld" },
 		new SelectListItem { Text = "besteld", Value = "besteld" },
@@ -90,12 +90,5 @@
 	<button type="submit" class="btn btn-success mt-2">+ Nieuwe bestelling </button>
 
 </form>
-
-@*<div class="form-group py-2">
-		<label for="Bestelling_Status">Bestelling_Status:</label>
-		<input type="text" id="Bestelling_Status" name="Bestelling_Status" class="form-control" required value="@Model?.Bestelling_Status" />
-	</div>*@
-
-
 
 
