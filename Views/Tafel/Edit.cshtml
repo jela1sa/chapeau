@@ -76,19 +76,24 @@
 		<button type="submit" class="btn btn-primary">Update</button>
 	</div>
 
-	<div class="mt-3">
-		<a href="/Tafel/Index">Back to overview</a>
-	</div>
 </form>
 
-
-
-<form action="/Bestelling/CreateBestelling" method="post">
+@*// Voor Mayowa*@<form action="/Bestelling/CreateBestelling" method="post" class="mt-3">
 
 	<input type="hidden" name="tafelId" value="@Model.Tafel_ID" />
 
-	<button type="submit" class="btn btn-success mt-2">+ Nieuwe bestelling </button>
+	<button type="submit" class="btn btn-success"> + Nieuwe bestelling </button>
 
 </form>
+
+
+	<div class="mt-3">
+		<a href="/Tafel/Index">Back to overview</a>
+	</div>
+
+
+
+
+
 
 

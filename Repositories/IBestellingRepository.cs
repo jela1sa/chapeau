@@ -13,6 +13,9 @@ namespace Chapeau.Repositories
         List<Bestelling> GetFinishedOrders();
         List<Bestelling> GetKitchenOrders();
         List<Bestelling> GetBarOrders();
-       
+        int CreateBestelling(int tafelId, int bedieningId); // Voor Mayowa
+
+        void AddItemToOrder(int bestellingId, string itemId, int aantal); // Voor Mayowa
+
     }
 }
