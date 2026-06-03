@@ -11,11 +11,6 @@ namespace Chapeau.Controllers
 {
     public class LoginController : Controller
     {
-        /*private readonly IMedewerkerRepository _medewerkerRepository;
-        public LoginController(IMedewerkerRepository medewerkerRepository)
-        {
-            _medewerkerRepository = medewerkerRepository;
-        }*/
         private readonly IMedewerkersService _medewerkersService;
         public LoginController(IMedewerkersService medewerkersService)
         {
@@ -31,10 +26,9 @@ namespace Chapeau.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(LoginModel loginModel)
+        public async Task<ActionResult> LoginAsync(LoginModel loginModel)
         {
             
-            //get user (from repository/databas) matching username and password
             Medewerker? medewerker = _medewerkersService.GetByLoginCredentials(loginModel.gebruikersnaam, loginModel.wachtwoord);
             if (medewerker == null)
             {
@@ -52,13 +46,13 @@ namespace Chapeau.Controllers
 
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
-            HttpContext.SignInAsync(principal);
+            await HttpContext.SignInAsync(principal);
             return RedirectToAction("Index", "Tafel");
         }
         [HttpPost]
-        public IActionResult LogOff(){
-            //HttpContext.Session.Remove("LoggedInMedewerker");
-            HttpContext.SignOutAsync();
+        public async Task<IActionResult> LogOffAsync()
+        {
+            await HttpContext.SignOutAsync();
 
             return RedirectToAction("Login", "Login");
         }

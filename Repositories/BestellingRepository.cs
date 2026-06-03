@@ -102,21 +102,80 @@ namespace Chapeau.Repositories
 
         }
 
-        
-
-        public void UpdateOrderStatus(int bestellingId, string status)
+        public List<Bestelling> GetKitchenOrders()
         {
+            return GetFilteredOrders("keuken");
+        }
+
+        public List<Bestelling> GetBarOrders()
+        {
+            return GetFilteredOrders("bar");
+        }
+
+        private List<Bestelling> GetFilteredOrders(string locatie)
+        {
+            List<Bestelling> bestellingen = new();
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"UPDATE Bestelling SET bestelling_status = @status WHERE bestelling_ID = @id";
+                string query = @" SELECT b.bestelling_ID, b.tafel_ID, t.tafel_nummer, b.datum_tijd, b.bestelling_Status, b.tijdstip_opgegeven,
+               br.bestellingsronde_ID, br.item_ID, br.aantal, br.opmerkingen, br.bestellingsronde_status, mi.naam, mi.categorie, v.locatie
+               FROM Bestelling b
+               JOIN Tafel t ON b.tafel_ID = t.tafel_ID
+               JOIN BestellingsRonde br ON b.bestelling_ID = br.bestelling_ID
+               JOIN MenuItem mi ON br.item_ID = mi.item_ID
+               JOIN Voorraad v ON mi.item_ID = v.item_ID
+               WHERE v.locatie = @locatie AND b.bestelling_Status IN ('opgenomen', 'in_bereiding')
+               ORDER BY b.datum_tijd ASC";
 
                 SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@status", status);
-                command.Parameters.AddWithValue("@id", bestellingId);
-
+                command.Parameters.AddWithValue("@locatie", locatie);
                 connection.Open();
-                command.ExecuteNonQuery();
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+
+                    var order = bestellingen.FirstOrDefault(x => x.Bestelling_ID == id);
+
+                    if (order == null)
+                    {
+                        order = new Bestelling
+                        {
+                            Bestelling_ID = id,
+                            Tafel_ID = reader.GetInt32(1),
+                            TafelNummer = reader.GetString(2),
+                            Datum_Tijd = reader.GetDateTime(3),
+                            Bestelling_Status = reader.GetString(4),
+                            Tijdstip_Opgegeven = TimeSpan.Parse(reader["tijdstip_opgegeven"].ToString()),
+                            BestellingsRondes = new List<BestellingsRonde>()
+                        };
+
+                        bestellingen.Add(order);
+                    }
+
+                    order.BestellingsRondes.Add(new BestellingsRonde
+                    {
+                        BestellingsRonde_ID = Convert.ToInt32(reader["bestellingsronde_ID"]),
+                        Item_ID = reader["item_ID"].ToString(),
+                        Aantal = Convert.ToInt32(reader["aantal"]),
+                        Opmerkingen = reader["opmerkingen"]?.ToString(),
+                        BestellingsRonde_Status = reader["bestellingsronde_status"].ToString(),
+                        MenuItem = new MenuItem(
+                            reader["item_ID"].ToString(),
+                            reader["naam"].ToString(),
+                            "",
+                            0,
+                            reader["categorie"].ToString(),
+                            0,
+                            null
+                        )
+                    });
+                }
             }
+
+            return bestellingen;
         }
 
         public void UpdateItemStatus(int bestellingsRondeId, string status)
@@ -133,6 +192,23 @@ namespace Chapeau.Repositories
                 command .ExecuteNonQuery();
             }
         }
+
+        public void UpdateOrderStatus(int bestellingId, string status)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"UPDATE Bestelling SET bestelling_status = @status WHERE bestelling_ID = @id";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@status", status);
+                command.Parameters.AddWithValue("@id", bestellingId);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+       
         //b= bestelling, t= tafel, br= bestellingsronde, mi= menuitem,
         public void UpdateCourseStatus(int bestellingId, string categorie, string status)
         {
@@ -140,7 +216,7 @@ namespace Chapeau.Repositories
             {
                 string query = @"UPDATE br SET br.bestellingsronde_status = @status 
                 FROM bestellingsRonde br
-               JOIN MenuItem mi ON br.item_ID = mi.item_ID
+               INNER JOIN MenuItem mi ON br.item_ID = mi.item_ID
                WHERE br.bestelling_ID = @bestellingId AND mi.categorie = @categorie";
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -154,6 +230,7 @@ namespace Chapeau.Repositories
             }
         }
 
+      
         //b= bestelling, t= tafel, br= bestellingsronde, mi= menuitem, 
         public List<Bestelling> GetFinishedOrders()
         {
@@ -164,7 +241,7 @@ namespace Chapeau.Repositories
               string query = @"SELECT b.bestelling_ID,b.tafel_ID,t.tafel_nummer, b.datum_tijd, b.bestelling_status
               FROM Bestelling b
               JOIN Tafel t ON b.tafel_ID = t.tafel_ID
-              WHERE b.bestelling_status IN ('gereed','geserveerd') AND b.datum_tijd >= @startOfDay AND b.datum_tijd < @endOfDay
+              WHERE b.bestelling_status IN ('gereed','geserveerd') 
               ORDER BY b.datum_tijd DESC";
 
                 SqlCommand command = new SqlCommand(query, connection);

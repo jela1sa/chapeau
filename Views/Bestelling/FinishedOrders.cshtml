@@ -1,16 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
+﻿
 @model List<Chapeau.Models.Bestelling>
+
+<a asp-action="RunningOrders" class="btn btn-primary">Running Orders</a>
 
 <h1>Finished Orders Today</h1>
 
-<a asp-action="RunningOrders">
-    Running Orders
-</a>
+
 
 <table class="table">
     <thead>

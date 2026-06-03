@@ -19,7 +19,7 @@ namespace Chapeau.Repositories
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SELECT Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status, Bestelling.drink_status
+                string query = @"SELECT DISTINCT Tafel.tafel_ID, Tafel.tafel_nummer, Tafel.aantal_stoelen, Tafel.status, Bestelling.bestelling_status, Bestelling.drink_status
                                  FROM Tafel JOIN Bestelling ON Tafel.tafel_ID = Bestelling.tafel_ID
                                  ORDER BY Tafel.tafel_ID";
 
@@ -95,49 +95,6 @@ namespace Chapeau.Repositories
             return tafel;
         }
 
-        //public void Update(Tafel tafel)
-        //{
-        //    using (SqlConnection connection = new SqlConnection(_connectionString))
-        //    {
-        //        connection.Open();
-        //        string query = @"UPDATE Tafel
-        //                         SET Tafel.tafel_nummer = @tafel_nummer,
-        //                             Tafel.aantal_stoelen = @aantal_stoelen,
-        //                             Tafel.status = @status,
-        //                         WHERE Tafel.tafel_ID = @tafel_ID";
-
-
-        //        SqlCommand command = new SqlCommand(query, connection);
-
-        //        command.Parameters.AddWithValue("@tafel_ID", tafel.Tafel_ID);
-        //        command.Parameters.AddWithValue("@tafel_nummer", tafel.Tafel_Nummer);
-        //        command.Parameters.AddWithValue("@aantal_stoelen", tafel.Aantal_stoelen);
-        //        command.Parameters.AddWithValue("@status", tafel.Status);
-
-
-
-        //        int nrOfRowsAffected = command.ExecuteNonQuery();
-
-        //        if (nrOfRowsAffected != 1)
-        //        {
-        //            throw new Exception("Update failed");
-        //        }
-        //        string bestellingquery = @"UPDATE Bestelling
-        //                   SET bestelling_status = @bestelling_status
-        //                   WHERE tafel_ID = @tafel_ID";
-
-
-        //        SqlCommand command2 = new SqlCommand(bestellingquery, connection);
-        //        command.Parameters.AddWithValue("@tafel_ID", tafel.Tafel_ID);
-        //        command.Parameters.AddWithValue("@bestelling_status", tafel.bestelling_status);
-        //        int nrOfRowsAffected2 = command2.ExecuteNonQuery();
-
-        //        if (nrOfRowsAffected2 != 1)
-        //        {
-        //            throw new Exception("Update failed");
-        //        }
-        //    }
-        //}
         public void Update(Tafel tafel)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

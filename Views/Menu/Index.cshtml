@@ -3,6 +3,9 @@
 @{
     Layout = "_Layout";
     ViewData["Title"] = "Menu";
+    
+    int bestellingId = ViewBag.BestellingId;
+
 
 }
 
@@ -56,6 +59,18 @@
                 }
 
             </div>
+
+                @if (ViewBag.BestellingId != null && (int)ViewBag.BestellingId > 0)
+                {
+                    <form asp-controller="Bestelling" asp-action="AddItemToOrder" method="post">
+                        <input type="hidden" name="bestellingId" value="@ViewBag.BestellingId" />
+                        <input type="hidden" name="itemId" value="@item.MenuItem.Item_id" />
+
+                        <input type="number" name="aantal" value="1" min="1" />
+
+                        <button type="submit" class="btn btn-success btn-sm mt-2"> + Voeg toe</button>
+                    </form>
+                }
         </div>
     }
 

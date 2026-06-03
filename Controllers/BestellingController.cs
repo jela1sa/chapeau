@@ -14,12 +14,39 @@ namespace Chapeau.Controllers
             _bestellingRepository = bestellingRepository;
         }
 
-        public IActionResult RunningOrders()
-        {
-            var orders = _bestellingRepository.GetRunningOrders();
+       // public IActionResult RunningOrders()
+        //{
+        //     var orders = _bestellingRepository.GetRunningOrders();
 
+         //   return View(orders);
+        //}
+
+        public IActionResult RunningOrders(string type = "all")
+        {
+            var orders = type switch
+            {
+                "kitchen" => _bestellingRepository.GetKitchenOrders(),
+                "bar" => _bestellingRepository.GetBarOrders(),
+                _ => _bestellingRepository.GetRunningOrders()
+            };
+
+            ViewBag.Type = type;
             return View(orders);
         }
+
+       // public IActionResult KitchenOrders()
+        //{
+         ///   var orders = _bestellingRepository.GetKitchenOrders();
+            //return View(orders);
+        //}
+
+        //public IActionResult BarOrders()
+        //{
+          //  var orders = _bestellingRepository.GetBarOrders();
+            //return View(orders);
+        //}
+
+
 
         [HttpPost]
         public IActionResult UpdateOrderStatus(int bestellingId, string status)
@@ -51,6 +78,9 @@ namespace Chapeau.Controllers
 
             return View(bestellings);
         }
+
+        
+
     }
 }
 

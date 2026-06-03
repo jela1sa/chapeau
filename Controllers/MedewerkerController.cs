@@ -19,21 +19,11 @@ namespace Chapeau.Controllers
         }
         public IActionResult Index()
         {
-            /*Medewerker? loggedInMedewerker = null;
-            string? medewerkerJson = HttpContext.Session.GetString("LoggedInMedewerker");
-            if (medewerkerJson != null)
-                loggedInMedewerker = JsonSerializer.Deserialize<Medewerker>(medewerkerJson);
-
-            ViewData["LoggedInMedewerker"] = loggedInMedewerker;
-            List<Medewerker> medewerker = _medewerkersService.GetAll();*/
-            return View(/*medewerker*/);
+            return View();
         }
         public ActionResult Account()
         {
-            Medewerker? loggedInMedewerker = HttpContext.Session.GetObject<Medewerker>("LoggedInMedewerker");
-
-            ViewData["LoggedInMedewerker"] = loggedInMedewerker;
-            return View(loggedInMedewerker);
+            return View();
         }
         [HttpGet]
         public IActionResult Create()
