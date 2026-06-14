@@ -1,4 +1,4 @@
-﻿using Chapeau.Repositories;
+﻿using Chapeau.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,98 +7,70 @@ namespace Chapeau.Controllers
     [Authorize]
     public class BestellingController : Controller
     {
-        private readonly IBestellingRepository _bestellingRepository;
+        private readonly IBestellingService _bestellingService;
 
-        public BestellingController(IBestellingRepository bestellingRepository)
+        public BestellingController(IBestellingService bestellingService)
         {
-            _bestellingRepository = bestellingRepository;
+            _bestellingService = bestellingService;
         }
 
-       // public IActionResult RunningOrders()
-        //{
-        //     var orders = _bestellingRepository.GetRunningOrders();
-
-         //   return View(orders);
-        //}
+        
 
         public IActionResult RunningOrders(string type = "all")
         {
-            var orders = type switch
-            {
-                "kitchen" => _bestellingRepository.GetKitchenOrders(),
-                "bar" => _bestellingRepository.GetBarOrders(),
-                _ => _bestellingRepository.GetRunningOrders()
-            };
-
-            ViewBag.Type = type;
-            return View(orders);
+            var vm = _bestellingService.GetRunningOrders(type);
+            return View(vm);
         }
 
-       // public IActionResult KitchenOrders()
-        //{
-         ///   var orders = _bestellingRepository.GetKitchenOrders();
-            //return View(orders);
-        //}
-
-        //public IActionResult BarOrders()
-        //{
-          //  var orders = _bestellingRepository.GetBarOrders();
-            //return View(orders);
-        //}
-
-
+        
 
         [HttpPost]
         public IActionResult UpdateOrderStatus(int bestellingId, string status)
         {
-            _bestellingRepository.UpdateOrderStatus(bestellingId, status);
-
+            _bestellingService.UpdateOrderStatus(bestellingId, status);
             return RedirectToAction("RunningOrders");
         }
 
         [HttpPost]
         public IActionResult UpdateItemStatus(int bestellingsRondeId, string status)
         {
-            _bestellingRepository.UpdateItemStatus(bestellingsRondeId, status);
-
+            _bestellingService.UpdateItemStatus(bestellingsRondeId, status);
             return RedirectToAction("RunningOrders");
         }
 
         [HttpPost]
-        public IActionResult UpdateCourseStatus(int bestellingId, string categorie, string status)
+        public IActionResult UpdateCourseStatus(int bestellingId, string naam, string status)
         {
-            _bestellingRepository.UpdateCourseStatus(bestellingId,categorie, status);
-
+            _bestellingService.UpdateCourseStatus(bestellingId, naam, status);
             return RedirectToAction("RunningOrders");
         }
 
+
         public IActionResult FinishedOrders()
         {
-            var bestellings = _bestellingRepository.GetFinishedOrders();
-
-            return View(bestellings);
+            var model = _bestellingService.GetFinishedOrders();
+            return View(model);
         }
 
-        [HttpPost] // Voor Mayowa
+
+        [HttpPost]
         public IActionResult CreateBestelling(int tafelId)
         {
-            int bedieningId = 12; // tijdelijk
+            int bedieningId = int.Parse(User.FindFirst("EmployeeId")?.Value); // Ingelogde medewerker ID ophalen
 
-            int bestellingId = _bestellingRepository.CreateBestelling( tafelId, bedieningId);
+            int bestellingId = _bestellingService.CreateBestelling(tafelId, bedieningId);
+
 
             return RedirectToAction("Index", "Menu", new { bestellingId });
         }
 
-        [HttpPost] // Voor Mayowa
+
+        [HttpPost]
         public IActionResult AddItemToOrder(int bestellingId, string itemId, int aantal)
         {
-            _bestellingRepository.AddItemToOrder(bestellingId, itemId,  aantal);
+            _bestellingService.AddItemToOrder(bestellingId, itemId, aantal);
 
             return RedirectToAction("Index", "Menu", new { bestellingId });
         }
-
-
-
     }
 }
-
