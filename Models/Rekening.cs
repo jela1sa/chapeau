@@ -13,6 +13,10 @@
 
         public Bestelling Bestelling { get; set; }
 
+        public Rekening()
+        {
+        }
+
 
         public Rekening(int rekening_ID, int bestelling_ID, decimal totaalBedrag, decimal fooi, decimal btwBedrag, string betaalwijze, string feedback, DateTime datum, Bestelling bestelling)
         {
