@@ -3,6 +3,7 @@
 
     public interface IRekeningRepository
     {
-        Rekening GetbestellingByTafel(int tableId);
-    }
+    void VoegToe(Rekening rekening);
+    void WijzigTafelStatus(int bestellingId, string status);
+}
 
