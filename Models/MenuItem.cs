@@ -42,6 +42,23 @@ namespace Chapeau.Models
             Categorie = categorie;
             Btw_tarief = btw_tarief;
         }
+
+        public string Course
+        {
+            get
+            {
+                if (Naam.Contains("Voorgerecht"))
+                    return "Voorgerecht";
+
+                if (Naam.Contains("Hoofdgerecht"))
+                    return "Hoofdgerecht";
+
+                if (Naam.Contains("Nagerecht"))
+                    return "Nagerecht";
+
+                return "Overig";
+            }
+        }
     }
 
 }

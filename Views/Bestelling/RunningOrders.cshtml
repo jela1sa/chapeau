@@ -1,4 +1,4 @@
-﻿@model List<Chapeau.Models.Bestelling>
+﻿@model List<Chapeau.ViewModels.RunningOrderViewModel>
 
 
 <a asp-action="FinishedOrders" class="btn btn-secondary">Finished Orders</a>
@@ -29,58 +29,61 @@
         @foreach (var order in Model)
         {
             <tr>
-                <td>@order.Bestelling_ID</td>
-                <td>@order.TafelNummer</td>
+                <td>@order.Bestelling.Bestelling_ID</td>
+                <td>@order.Bestelling.TafelNummer</td>
 
                 <td>
-                    <strong>@order.Bestelling_Status</strong>
-
+                    <strong>@order.Bestelling.Bestelling_Status</strong>
                     <form asp-action="UpdateOrderStatus" method="post">
-                     <input type="hidden" name="bestellingId" value="@order.Bestelling_ID" />
+                     <input type="hidden" name="bestellingId" value="@order.Bestelling.Bestelling_ID" />
 
                         <select name="status">
                             <option value="besteld">besteld</option>
                             <option value="in_bereiding">in_bereiding</option>
                             <option value="gereed">gereed</option>
-                            <option value="geserveerd">geserveerd</option>
                         </select>
 
-                        <button type="submit">OK</button>
+                        <button type="submit">Update</button>
+                       
                     </form>
                 </td>
 
-                <td>@order.Datum_Tijd</td>
-                <td>@order.Wachttijd min</td>
+                <td>@order.Bestelling.Datum_Tijd</td>
+                <td>@order.Bestelling.Wachttijd min</td>
             </tr>
 
             <tr>
                 <td colspan="5">
-                    @foreach (var categorie in order.BestellingsRondes
+                    @foreach (var course in order.Bestelling.BestellingsRonde
                                     .Where(x => x.MenuItem != null)
-                                    .GroupBy(x => x.MenuItem.Categorie))
+                                    .Where(x =>
+                                    x.MenuItem.Naam.StartsWith("Voorgerecht") ||
+                                    x.MenuItem.Naam.StartsWith("Hoofdgerecht") ||
+                                    x.MenuItem.Naam.StartsWith("Nagerecht"))
+                                    .GroupBy(x => x.MenuItem.Naam))
                     {
-                        <h5>@categorie.Key</h5>                                                     
+                        <h5>@course.Key</h5>                                                     
                         <form asp-action="UpdateCourseStatus" method="post">
 
                             <input type="hidden"
                                    name="bestellingId"
-                                   value="@order.Bestelling_ID" />
+                                   value="@order.Bestelling.Bestelling_ID" />
 
                             <input type="hidden"
-                                   name="categorie"
-                                   value="@categorie.Key" />
+                                   name="naam"
+                                   value="@course.Key" />
 
                             <select name="status">
-                                <option value="open">open</option>
+                                <option value="besteld">besteld</option>
                                 <option value="in_bereiding">in_bereiding</option>
                                 <option value="gereed">gereed</option>
                             </select>
 
-                            <button type="submit">Update categorie</button>
+                           
                         </form>
 
                         <ul>
-                            @foreach (var item in categorie)
+                            @foreach (var item in course)
                             {
                                 <li>
                                     @item.Aantal x @item.MenuItem.Naam
@@ -97,12 +100,12 @@
                                                value="@item.BestellingsRonde_ID" />
 
                                         <select name="status">
-                                            <option value="open">open</option>
+                                            <option value="besteld">besteld</option>
                                             <option value="gereed">gereed</option>
                                             <option value="in_bereiding">in_bereiding</option>
                                         </select>
 
-                                        <button type="submit">Update item</button>
+                                       
                                     </form>
                                 </li>
                             }
