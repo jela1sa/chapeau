@@ -13,6 +13,7 @@ namespace Chapeau
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<DBDummyRep>();
+            builder.Services.AddScoped<IBestellingService, BestellingService>();
             builder.Services.AddScoped<IBestellingRepository, BestellingRepository>();
             builder.Services.AddSingleton<IMedewerkerRepository, DBMedewerkerRepository>();
             builder.Services.AddSingleton<IMedewerkersService, MedewerkersService>();

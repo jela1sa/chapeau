@@ -63,7 +63,7 @@ namespace Chapeau.Repositories
                             Bestelling_Status = reader.GetString(4),
                             Tijdstip_Opgegeven = TimeSpan.Parse(reader["tijdstip_opgegeven"].ToString()),
                             Wachttijd = wachttijd,
-                            BestellingsRondes = new List<BestellingsRonde>()
+                            BestellingsRonde = new List<BestellingsRonde>()
                         };
 
                         bestellingen.Add(bestaandeBestelling);
@@ -80,27 +80,49 @@ namespace Chapeau.Repositories
                         reader["categorie"].ToString(), 0, null)
                     };
 
-                    bestaandeBestelling.BestellingsRondes.Add(ronde);
+                    bestaandeBestelling.BestellingsRonde.Add(ronde);
+                }
+            }
+            return bestellingen;
+        }
+
+        //b= bestelling, t= tafel, br= bestellingsronde, mi= menuitem, 
+        public List<Bestelling> GetFinishedOrders()
+        {
+            List<Bestelling> bestellingen = new List<Bestelling>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = @"SELECT b.bestelling_ID,b.tafel_ID,t.tafel_nummer, b.datum_tijd, b.bestelling_status
+              FROM Bestelling b
+              JOIN Tafel t ON b.tafel_ID = t.tafel_ID
+              WHERE b.bestelling_status IN ('gereed','geserveerd') 
+              ORDER BY b.datum_tijd DESC";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    bestellingen.Add(new Bestelling
+                    {
+                        Bestelling_ID = reader.GetInt32(0),
+                        Tafel_ID = reader.GetInt32(1),
+                        TafelNummer = reader.GetString(2),
+                        Datum_Tijd = reader.GetDateTime(3),
+                        Bestelling_Status = reader.GetString(4)
+                    });
                 }
             }
 
-            foreach (var bestaandeBestelling in bestellingen)
-            {
-                bestaandeBestelling.Categories = bestaandeBestelling.BestellingsRondes
-                    .Where(x => x.MenuItem != null)
-                    .GroupBy(x => x.MenuItem.Categorie)
-                    .Select(g => new CategorieGroepViewModel
-                    {
-                        Categorie = g.Key,
-                        Status = "open",
-                        Items = g.ToList()
-                    })
-                    .ToList();
-            }
-
             return bestellingen;
-
         }
+
+
 
         public List<Bestelling> GetKitchenOrders()
         {
@@ -149,13 +171,13 @@ namespace Chapeau.Repositories
                             Datum_Tijd = reader.GetDateTime(3),
                             Bestelling_Status = reader.GetString(4),
                             Tijdstip_Opgegeven = TimeSpan.Parse(reader["tijdstip_opgegeven"].ToString()),
-                            BestellingsRondes = new List<BestellingsRonde>()
+                            BestellingsRonde = new List<BestellingsRonde>()
                         };
 
                         bestellingen.Add(order);
                     }
 
-                    order.BestellingsRondes.Add(new BestellingsRonde
+                    order.BestellingsRonde.Add(new BestellingsRonde
                     {
                         BestellingsRonde_ID = Convert.ToInt32(reader["bestellingsronde_ID"]),
                         Item_ID = reader["item_ID"].ToString(),
@@ -178,20 +200,7 @@ namespace Chapeau.Repositories
             return bestellingen;
         }
 
-        public void UpdateItemStatus(int bestellingsRondeId, string status)
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                string query = @"UPDATE BestellingsRonde SET bestellingsronde_status = @status WHERE bestellingsronde_ID = @id";
 
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@status", status);
-                command.Parameters.AddWithValue("@id", bestellingsRondeId);
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
-        }
 
         public void UpdateOrderStatus(int bestellingId, string status)
         {
@@ -208,22 +217,21 @@ namespace Chapeau.Repositories
             }
         }
 
-
         //b= bestelling, t= tafel, br= bestellingsronde, mi= menuitem,
-        public void UpdateCourseStatus(int bestellingId, string categorie, string status)
+        public void UpdateCourseStatus(int bestellingId, string naam, string status)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string query = @"UPDATE br SET br.bestellingsronde_status = @status 
                 FROM bestellingsRonde br
                INNER JOIN MenuItem mi ON br.item_ID = mi.item_ID
-               WHERE br.bestelling_ID = @bestellingId AND mi.categorie = @categorie";
+               WHERE br.bestelling_ID = @bestellingId AND mi.naam = @naam";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("@status", status);
                 command.Parameters.AddWithValue("@bestellingId", bestellingId);
-                command.Parameters.AddWithValue("@categorie", categorie);
+                command.Parameters.AddWithValue("@naam", naam);
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -231,46 +239,27 @@ namespace Chapeau.Repositories
         }
 
 
-        //b= bestelling, t= tafel, br= bestellingsronde, mi= menuitem, 
-        public List<Bestelling> GetFinishedOrders()
+        public void UpdateItemStatus(int bestellingsRondeId, string status)
         {
-            List<Bestelling> bestellingen = new List<Bestelling>();
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = @"SELECT b.bestelling_ID,b.tafel_ID,t.tafel_nummer, b.datum_tijd, b.bestelling_status
-              FROM Bestelling b
-              JOIN Tafel t ON b.tafel_ID = t.tafel_ID
-              WHERE b.bestelling_status IN ('gereed','geserveerd') 
-              ORDER BY b.datum_tijd DESC";
+                string query = @"UPDATE BestellingsRonde SET bestellingsronde_status = @status WHERE bestellingsronde_ID = @id";
 
                 SqlCommand command = new SqlCommand(query, connection);
-                DateTime vandaag = DateTime.Today;
-
-                command.Parameters.AddWithValue("@startOfDay", vandaag);
-                command.Parameters.AddWithValue("@endOfDay", vandaag.AddDays(1));
+                command.Parameters.AddWithValue("@status", status);
+                command.Parameters.AddWithValue("@id", bestellingsRondeId);
 
                 connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    bestellingen.Add(new Bestelling
-                    {
-                        Bestelling_ID = reader.GetInt32(0),
-                        Tafel_ID = reader.GetInt32(1),
-                        TafelNummer = reader.GetString(2),
-                        Datum_Tijd = reader.GetDateTime(3),
-                        Bestelling_Status = reader.GetString(4)
-                    });
-                }
+                command.ExecuteNonQuery();
             }
-
-            return bestellingen;
         }
 
-        public int CreateBestelling(int tafelId, int bedieningId) // Voor Mayowa
+       
+
+       
+
+
+        public int CreateBestelling(int tafelId, int bedieningId) 
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
 
@@ -297,14 +286,14 @@ namespace Chapeau.Repositories
             return nieuweBestellingId;
         }
 
-        public void AddItemToOrder(int bestellingId, string itemId, int aantal) // Voor Mayowa
+        public void AddItemToOrder(int bestellingId, string itemId, int aantal) 
 
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
 
             string query = @" INSERT INTO BestellingsRonde(bestelling_ID, item_ID, aantal,  opmerkingen, bestellingsronde_status)
         VALUES
-        (@bestellingId, @itemId,  @aantal, '',  'open' )";
+        (@bestellingId, @itemId,  @aantal, '',  'besteld' )";
 
             SqlCommand command =
                 new SqlCommand(query, connection);
@@ -357,7 +346,7 @@ namespace Chapeau.Repositories
         ON oi.item_id = mi.item_id
 
     WHERE b.tafel_id = @Tafel_ID
-    AND b.bestelling_status = 'Open'
+    AND b.bestelling_status = 'besteld'
 ";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -374,7 +363,7 @@ namespace Chapeau.Repositories
                                 {
                                     Bestelling_ID = Convert.ToInt32(reader["bestelling_id"]),
                                     Tafel_ID = Convert.ToInt32(reader["tafel_id"]),
-                                    Bediending_ID = Convert.ToInt32(reader["bediening_id"]),
+                                    Bediening_ID = Convert.ToInt32(reader["bediening_id"]),
                                     Datum_Tijd = Convert.ToDateTime(reader["datum_tijd"]),
                                     Bestelling_Status = reader["Bestelling_Status"].ToString(),
                                     Tijdstip_Opgenomen = TimeOnly.FromDateTime(Convert.ToDateTime(reader["tijdstip_opgegeven"])),

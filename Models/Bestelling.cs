@@ -5,7 +5,7 @@ namespace Chapeau.Models
     public class Bestelling
     {
         public int Bestelling_ID { get; set; }
-        public int Bediending_ID { get; set; }
+      
         public int Tafel_ID { get; set; }         
         public string TafelNummer { get; set; }
         public  int Bediening_ID { get; set; }
@@ -15,8 +15,8 @@ namespace Chapeau.Models
         public int Wachttijd { get; set; }
         public virtual ICollection<BestellingItem> BestellingItems { get; set; }
         public TimeOnly Tijdstip_Opgenomen { get; set; } = new TimeOnly();
-        public List<BestellingsRonde> BestellingsRondes { get; set; }
-        public List<CategorieGroepViewModel> Categories { get; set; }
+        public List<BestellingsRonde> BestellingsRonde { get; set; }
+    
 
 
         public Bestelling()

@@ -1,4 +1,5 @@
-﻿using Chapeau.Repositories;
+﻿using Chapeau.Models;
+using Chapeau.Repositories;
 using Chapeau.ViewModels;
 
 namespace Chapeau.Services
@@ -59,6 +60,52 @@ namespace Chapeau.Services
                 HighVatTotal = highVat
             };
         }
+
+        public List<RunningOrderViewModel> GetRunningOrders(string type)
+        {
+            var orders = type switch
+            {
+                "kitchen" => _repository.GetKitchenOrders(),
+                "bar" => _repository.GetBarOrders(),
+                _ => _repository.GetRunningOrders()
+            };
+
+            return orders.Select(b => new RunningOrderViewModel
+            {
+                Bestelling = b,
+                Categories = b.BestellingsRonde
+                    .GroupBy(x => x.MenuItem.Categorie)
+                    .Select(g => new CourseGroepViewModel
+                    {
+                        Naam = g.Key,
+                        Status = "besteld",
+                        Items = g.ToList()
+                    })
+                    .ToList()
+            }
+            ).ToList();
+        }
+
+        public void UpdateOrderStatus(int bestellingId, string status)
+            => _repository.UpdateOrderStatus(bestellingId, status);
+
+        public void UpdateItemStatus(int bestellingsRondeId, string status)
+            => _repository.UpdateItemStatus(bestellingsRondeId, status);
+
+        public void UpdateCourseStatus(int bestellingId, string naam, string status)
+            => _repository.UpdateCourseStatus(bestellingId, naam, status);
+
+
+        public List<Bestelling> GetFinishedOrders()
+            => _repository.GetFinishedOrders();
+
+      
+        public int CreateBestelling(int tafelId, int bedieningId)
+            => _repository.CreateBestelling(tafelId, bedieningId);
+
+
+        public void AddItemToOrder(int bestellingId, string itemId, int aantal)
+            => _repository.AddItemToOrder(bestellingId, itemId, aantal);
     }
 }
 
