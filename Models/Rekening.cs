@@ -2,36 +2,34 @@
 {
     public class Rekening
     {
-        public int Rekening_ID { get; set;  }
-
+               public int Rekening_ID { get; set; }
         public int Bestelling_ID { get; set; }
-
-        public int Totaal_Bedrag { get; set; }
-
-        public decimal BTW_6_procent { get; set; }
-
-        public decimal BTW_21_procent { get; set; }
-
-        public decimal fooi { get; set; }
-
+        public decimal TotaalBedrag { get; set; }
+        public decimal Fooi { get; set; }
+        public decimal BtwBedrag { get; set; }
         public string Betaalwijze { get; set; }
-
-        public string Status { get; set; }
-
+        public string Feedback { get; set; }
         public DateTime Datum { get; set; }
 
-        public Rekening(int rekening_ID, int bestelling_ID, int totaal_Bedrag, decimal bTW_6_procent, decimal bTW_21_procent, decimal fooi, string betaalwijze, string status, DateTime datum)
+        public Bestelling Bestelling { get; set; }
+
+
+        public Rekening(int rekening_ID, int bestelling_ID, decimal totaalBedrag, decimal fooi, decimal btwBedrag, string betaalwijze, string feedback, DateTime datum, Bestelling bestelling)
         {
             Rekening_ID = rekening_ID;
             Bestelling_ID = bestelling_ID;
-            Totaal_Bedrag = totaal_Bedrag;
-            BTW_6_procent = bTW_6_procent;
-            BTW_21_procent = bTW_21_procent;
-            this.fooi = fooi;
+            TotaalBedrag = totaalBedrag;
+            Fooi = fooi;
+            BtwBedrag = btwBedrag;
             Betaalwijze = betaalwijze;
-            Status = status;
+            Feedback = feedback;
             Datum = datum;
+            Bestelling = bestelling;
         }
 
+        internal void SaveChanges()
+        {
+            throw new NotImplementedException();
         }
+    }
 }

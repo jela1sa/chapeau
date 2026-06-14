@@ -76,8 +76,8 @@ namespace Chapeau.Repositories
                         Aantal = Convert.ToInt32(reader["aantal"]),
                         Opmerkingen = reader["opmerkingen"]?.ToString(),
                         BestellingsRonde_Status = reader["bestellingsronde_status"].ToString(),
-                        MenuItem = new MenuItem(reader["item_ID"].ToString(),reader["naam"].ToString(), "", 0, 
-                        reader["categorie"].ToString(),0,null)
+                        MenuItem = new MenuItem(reader["item_ID"].ToString(), reader["naam"].ToString(), "", 0,
+                        reader["categorie"].ToString(), 0, null)
                     };
 
                     bestaandeBestelling.BestellingsRondes.Add(ronde);
@@ -189,7 +189,7 @@ namespace Chapeau.Repositories
                 command.Parameters.AddWithValue("@id", bestellingsRondeId);
 
                 connection.Open();
-                command .ExecuteNonQuery();
+                command.ExecuteNonQuery();
             }
         }
 
@@ -208,7 +208,7 @@ namespace Chapeau.Repositories
             }
         }
 
-       
+
         //b= bestelling, t= tafel, br= bestellingsronde, mi= menuitem,
         public void UpdateCourseStatus(int bestellingId, string categorie, string status)
         {
@@ -230,15 +230,15 @@ namespace Chapeau.Repositories
             }
         }
 
-      
+
         //b= bestelling, t= tafel, br= bestellingsronde, mi= menuitem, 
         public List<Bestelling> GetFinishedOrders()
         {
             List<Bestelling> bestellingen = new List<Bestelling>();
 
-            using (SqlConnection connection =new SqlConnection(_connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-              string query = @"SELECT b.bestelling_ID,b.tafel_ID,t.tafel_nummer, b.datum_tijd, b.bestelling_status
+                string query = @"SELECT b.bestelling_ID,b.tafel_ID,t.tafel_nummer, b.datum_tijd, b.bestelling_status
               FROM Bestelling b
               JOIN Tafel t ON b.tafel_ID = t.tafel_ID
               WHERE b.bestelling_status IN ('gereed','geserveerd') 
@@ -278,7 +278,7 @@ namespace Chapeau.Repositories
 
             string getIdQuery = @"SELECT ISNULL(MAX(bestelling_ID),0) + 1 FROM Bestelling";
 
-            SqlCommand getIdCommand =new SqlCommand(getIdQuery, connection);
+            SqlCommand getIdCommand = new SqlCommand(getIdQuery, connection);
 
             int nieuweBestellingId = (int)getIdCommand.ExecuteScalar();
 
@@ -302,7 +302,7 @@ namespace Chapeau.Repositories
         {
             using SqlConnection connection = new SqlConnection(_connectionString);
 
-        string query = @" INSERT INTO BestellingsRonde(bestelling_ID, item_ID, aantal,  opmerkingen, bestellingsronde_status)
+            string query = @" INSERT INTO BestellingsRonde(bestelling_ID, item_ID, aantal,  opmerkingen, bestellingsronde_status)
         VALUES
         (@bestellingId, @itemId,  @aantal, '',  'open' )";
 
@@ -409,3 +409,4 @@ namespace Chapeau.Repositories
         }
     }
 }
+
