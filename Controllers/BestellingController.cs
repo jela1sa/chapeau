@@ -56,7 +56,7 @@ namespace Chapeau.Controllers
         [HttpPost]
         public IActionResult CreateBestelling(int tafelId)
         {
-            int bedieningId = int.Parse(User.FindFirst("EmployeeId")?.Value); // Ingelogde medewerker ID ophalen
+            int bedieningId = 12; // Ingelogde medewerker ID ophalen
 
             int bestellingId = _bestellingService.CreateBestelling(tafelId, bedieningId);
 
