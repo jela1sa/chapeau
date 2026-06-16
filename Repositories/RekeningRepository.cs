@@ -34,13 +34,8 @@ namespace Chapeau.Repositories
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
-                    string query = @"
-                INSERT INTO Rekening
-                (Bestelling_ID, TotaalBedrag, Fooi, BtwBedrag,
-                 Betaalwijze, Feedback, Datum)
-                VALUES
-                (@Bestelling_ID, @TotaalBedrag, @Fooi, @BtwBedrag,
-                 @Betaalwijze, @Feedback, @Datum)";
+                    string query = @" INSERT INTO Rekening(Bestelling_ID, TotaalBedrag, Fooi, BtwBedrag,Betaalwijze, Feedback, Datum)
+                VALUES(@Bestelling_ID, @TotaalBedrag, @Fooi, @BtwBedrag,@Betaalwijze, @Feedback, @Datum)";
 
                     SqlCommand command = new SqlCommand(query, connection);
 

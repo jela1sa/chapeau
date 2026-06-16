@@ -25,7 +25,7 @@ namespace Chapeau.Controllers
 
         [HttpPost]
         public IActionResult Afrekenen(RekeningViewModel model)
-        {
+        { 
             if (!ModelState.IsValid)
                 return View(model);
 
