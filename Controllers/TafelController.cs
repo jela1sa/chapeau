@@ -37,9 +37,7 @@ namespace Chapeau.Controllers
         {
             try
             {
-                //update user via repository
                 _TafelsRepository.Update(Tafel);
-                //go back to users list (via index)
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
