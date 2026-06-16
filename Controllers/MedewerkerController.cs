@@ -35,7 +35,6 @@ namespace Chapeau.Controllers
         {
             try
             {
-                //add user via repository
                 _medewerkersService.Add(medewerker);
                 return RedirectToAction("Create");
             }
