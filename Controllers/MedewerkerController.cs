@@ -41,7 +41,6 @@ namespace Chapeau.Controllers
             }
             catch (Exception ex)
             {
-                //somtehing's wrong, go back to view with user
                 return View(medewerker);
             }
         }
