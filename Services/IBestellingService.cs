@@ -5,7 +5,7 @@ namespace Chapeau.Services
 {
     public interface IBestellingService
     {
-        BetalingViewModel GetBetalingDetails(int Tafel_ID);
+        
         List<RunningOrderViewModel> GetRunningOrders(string type);
 
         void UpdateOrderStatus(int bestellingId, string status);
@@ -13,6 +13,8 @@ namespace Chapeau.Services
         void UpdateCourseStatus(int bestellingId, string naam, string status);
 
         List<Bestelling> GetFinishedOrders();
+
+        BetalingViewModel GetBetalingDetails(int Tafel_ID);
 
         int CreateBestelling(int tafelId, int bedieningId);
 

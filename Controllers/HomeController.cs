@@ -1,4 +1,4 @@
-using Chapeau.Models;
+using Chapeau.ViewModels;
 using Chapeau.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
