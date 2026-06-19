@@ -35,13 +35,11 @@ namespace Chapeau.Controllers
         {
             try
             {
-                //add user via repository
                 _medewerkersService.Add(medewerker);
                 return RedirectToAction("Create");
             }
             catch (Exception ex)
             {
-                //somtehing's wrong, go back to view with user
                 return View(medewerker);
             }
         }

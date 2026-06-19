@@ -47,13 +47,6 @@ namespace Chapeau.Repositories
                     {
                         DateTime datumTijd = reader.GetDateTime(3);
 
-                        int wachttijd = 0;
-
-                        if (DateTime.Now > datumTijd)
-                        {
-                            wachttijd = (int)(DateTime.Now - datumTijd).TotalMinutes;
-                        }
-
                         bestaandeBestelling = new Bestelling()
                         {
                             Bestelling_ID = reader.GetInt32(0),
@@ -62,7 +55,6 @@ namespace Chapeau.Repositories
                             Datum_Tijd = datumTijd,
                             Bestelling_Status = reader.GetString(4),
                             Tijdstip_Opgegeven = TimeSpan.Parse(reader["tijdstip_opgegeven"].ToString()),
-                            Wachttijd = wachttijd,
                             BestellingsRonde = new List<BestellingsRonde>()
                         };
 

@@ -10,8 +10,7 @@
 	<script src="https://kit.fontawesome.com/77ffac2dfb.js" crossorigin="anonymous"></script>
 	@foreach (Tafel Tafel in Model)
 	{
-		<div class="Tafel-card">
-
+		<a href="/Tafel/Edit/@Tafel.Tafel_ID" class="Tafel-card">
 			<div class="status-group">
 				<div class="Bestelling_Status-circle
 				@(Tafel.Status == "vrij" ? "green" :
@@ -43,13 +42,7 @@
 				@Tafel.Tafel_Nummer
 			</div>
 
-			<a href="/Tafel/Edit/@Tafel.Tafel_ID" class="button">
-				Edit
-			</a>
-			
-			
-
-		</div>
+		</a>
 		}
 </div>
 
