@@ -64,22 +64,7 @@ namespace Chapeau.Repositories
             }
         }
 
-        //public void WijzigTafelStatus(int bestellingId, string status)
-        //{
-        //    var bestelling = _context.Bestellingen
-        //        .Include(b => b.Tafel)
-        //        .FirstOrDefault(b => b.Bestelling_ID == bestellingId);
-
-        //    if (bestelling != null)
-        //    {
-        //        bestelling.Tafel.Status = status;
-        //        _context.SaveChanges();
-        //    }
-        //}
-
-
-
-        //THIS WAS EDITED ROBBE
+      
         public void WijzigTafelStatus(int bestellingId, string status)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

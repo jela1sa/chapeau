@@ -8,6 +8,12 @@
     <form asp-action="Afrekenen" method="post">
         <input type="hidden" asp-for="Bestelling_ID" />
 
+    <div>
+        <label>Tafel:</label>
+        <select asp-for="Tafel_ID" asp-items="Model.TafelLijst" required>
+            <option value="">-- Selecteer een tafel --</option>
+        </select>
+    </div>
         <div>
             <label>Totaalbedrag (€):</label>
             <input asp-for="TotaalBedrag" type="number" step="0.01" required />

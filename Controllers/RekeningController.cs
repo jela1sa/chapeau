@@ -1,6 +1,7 @@
-﻿using Chapeau.ViewModels;
+﻿using Chapeau.Services;
+using Chapeau.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Chapeau.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Chapeau.Controllers
 {
@@ -25,7 +26,14 @@ namespace Chapeau.Controllers
 
         [HttpPost]
         public IActionResult Afrekenen(RekeningViewModel model)
-        { 
+        {
+            var tafels = _tafelService.GetAlleTafels();
+            model.TafelLijst = tafels.Select(t => new SelectListItem
+            {
+                Value = t.TafelNummer.ToString(),
+                Text = $"Tafel {t.TafelNummer}"
+            }).ToList();
+
             if (!ModelState.IsValid)
                 return View(model);
 
@@ -42,4 +50,3 @@ namespace Chapeau.Controllers
         }
     }
 }
-    
