@@ -21,6 +21,7 @@ namespace Chapeau
             builder.Services.AddScoped<ITafelRepository, DBTafelRepository>();
             builder.Services.AddScoped<IRekeningRepository, RekeningRepository>();
             builder.Services.AddScoped<Services.IRekeningService, Services.RekeningService>();
+            builder.Services.AddScoped<ITafelService, TafelService>();
 
             builder.Services.AddSession(options =>
             {

@@ -9,17 +9,14 @@ namespace Chapeau.Controllers
     [Authorize]
     public class TafelController : Controller
     {
-        private readonly ITafelRepository _TafelsRepository;
-        private readonly IBestellingRepository _bestellingRepository;
-
-        public TafelController(ITafelRepository TafelsRepository, IBestellingRepository bestellingRepository)
+        private readonly ITafelService _TafelService;
+        public TafelController(ITafelService TafelService)
         {
-            _TafelsRepository = TafelsRepository;
-            _bestellingRepository = bestellingRepository;
+            _TafelService = TafelService;
         }
         public IActionResult Index()
         {
-            List<Tafel> Tafels = _TafelsRepository.GetAll();
+            List<Tafel> Tafels = _TafelService.GetAll();
             return View(Tafels);
         }
 
@@ -29,7 +26,7 @@ namespace Chapeau.Controllers
             {
                 return NotFound();
             }
-            Tafel? Tafel = _TafelsRepository.GetById((int)id);
+            Tafel? Tafel = _TafelService.GetById((int)id);
             return View(Tafel);
         }
         [HttpPost]
@@ -37,7 +34,7 @@ namespace Chapeau.Controllers
         {
             try
             {
-                _TafelsRepository.Update(Tafel);
+                _TafelService.Update(Tafel);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
