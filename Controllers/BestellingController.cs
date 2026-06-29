@@ -28,7 +28,7 @@ namespace Chapeau.Controllers
         public IActionResult UpdateOrderStatus(int bestellingId, string status)
         {
             _bestellingService.UpdateOrderStatus(bestellingId, status);
-            return RedirectToAction("RunningOrders");
+            return RedirectToAction("FinishedOrders");
         }
 
         [HttpPost]

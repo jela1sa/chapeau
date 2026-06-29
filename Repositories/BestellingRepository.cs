@@ -138,9 +138,7 @@ namespace Chapeau.Repositories
                JOIN Tafel t ON b.tafel_ID = t.tafel_ID
                JOIN BestellingsRonde br ON b.bestelling_ID = br.bestelling_ID
                JOIN MenuItem mi ON br.item_ID = mi.item_ID
-               JOIN Voorraad v ON mi.item_ID = v.item_ID
-               WHERE v.locatie = @locatie AND b.bestelling_Status IN ('besteld', 'in_bereiding')
-               ORDER BY b.datum_tijd ASC";
+                ORDER BY b.datum_tijd ASC";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@locatie", locatie);

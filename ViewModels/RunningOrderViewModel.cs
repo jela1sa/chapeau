@@ -6,6 +6,7 @@ namespace Chapeau.ViewModels
     {
         public Bestelling Bestelling { get; set; }
 
-        public List<CourseGroepViewModel> Categories { get; set; }
+        public List<CourseGroepViewModel> KitchenItems { get; set; }
+        public List<CourseGroepViewModel> BarItems { get; set; }
     }
 }

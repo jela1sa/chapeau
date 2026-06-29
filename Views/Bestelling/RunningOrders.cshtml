@@ -1,120 +1,127 @@
 ﻿@model List<Chapeau.ViewModels.RunningOrderViewModel>
 
-
 <a asp-action="FinishedOrders" class="btn btn-secondary">Finished Orders</a>
-
 
 <h1>Running Orders</h1>
 
 <a asp-action="RunningOrders" asp-route-type="all" class="btn btn-primary">Alles</a>
-
 <a asp-action="RunningOrders" asp-route-type="kitchen" class="btn btn-warning">Keuken</a>
-
 <a asp-action="RunningOrders" asp-route-type="bar" class="btn btn-info">Bar</a>
 
-<form method="get"><button type="submit">Refresh</button></form>
+<form method="get">
+    <button type="submit">Refresh</button>
+</form>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Order</th>
-            <th>Tafel</th>
-            <th>Status</th>
-            <th>Tijd</th>
-            <th>Wachttijd</th>
-        </tr>
-    </thead>
+<hr />
 
-    <tbody>
-        @foreach (var order in Model)
+@foreach (var order in Model)
+{
+    <div class="card p-3 mb-4">
+
+        <h3>
+            Order @order.Bestelling.Bestelling_ID -
+            Tafel @order.Bestelling.TafelNummer
+        </h3>
+
+        <p>
+            Status: <strong>@order.Bestelling.Bestelling_Status</strong>
+            | Wachttijd: @order.Bestelling.Wachttijd min
+        </p>
+
+        
+        <form asp-action="UpdateOrderStatus" method="post">
+            <input type="hidden" name="bestellingId" value="@order.Bestelling.Bestelling_ID" />
+
+            <select name="status">
+                <option value="besteld">besteld</option>
+                <option value="in_bereiding">in_bereiding</option>
+                <option value="gereed">gereed</option>
+            </select>
+
+            <button type="submit">Update order</button>
+        </form>
+
+        <hr />
+
+       
+        
+
+        @if (order.KitchenItems != null && order.KitchenItems.Any())
         {
-            <tr>
-                <td>@order.Bestelling.Bestelling_ID</td>
-                <td>@order.Bestelling.TafelNummer</td>
+            foreach (var group in order.KitchenItems)
+            {
+              
 
-                <td>
-                    <strong>@order.Bestelling.Bestelling_Status</strong>
-                    <form asp-action="UpdateOrderStatus" method="post">
-                     <input type="hidden" name="bestellingId" value="@order.Bestelling.Bestelling_ID" />
-
-                        <select name="status">
-                            <option value="besteld">besteld</option>
-                            <option value="in_bereiding">in_bereiding</option>
-                            <option value="gereed">gereed</option>
-                        </select>
-
-                        <button type="submit">Update</button>
-                       
-                    </form>
-                </td>
-
-                <td>@order.Bestelling.Datum_Tijd</td>
-                <td>@order.Bestelling.Wachttijd min</td>
-            </tr>
-
-            <tr>
-                <td colspan="5">
-                    @foreach (var course in order.Bestelling.BestellingsRonde
-                                    .Where(x => x.MenuItem != null)
-                                    .Where(x =>
-                                    x.MenuItem.Naam.StartsWith("Voorgerecht") ||
-                                    x.MenuItem.Naam.StartsWith("Hoofdgerecht") ||
-                                    x.MenuItem.Naam.StartsWith("Nagerecht"))
-                                    .GroupBy(x => x.MenuItem.Naam))
+                <ul>
+                    @foreach (var item in group.Items)
                     {
-                        <h5>@course.Key</h5>                                                     
-                        <form asp-action="UpdateCourseStatus" method="post">
+                        <li>
+                            @item.Aantal x @item.MenuItem.Naam
+                            - <strong>@item.BestellingsRonde_Status</strong>
 
-                            <input type="hidden"
-                                   name="bestellingId"
-                                   value="@order.Bestelling.Bestelling_ID" />
-
-                            <input type="hidden"
-                                   name="naam"
-                                   value="@course.Key" />
-
-                            <select name="status">
-                                <option value="besteld">besteld</option>
-                                <option value="in_bereiding">in_bereiding</option>
-                                <option value="gereed">gereed</option>
-                            </select>
-
-                           
-                        </form>
-
-                        <ul>
-                            @foreach (var item in course)
+                            @if (!string.IsNullOrEmpty(item.Opmerkingen))
                             {
-                                <li>
-                                    @item.Aantal x @item.MenuItem.Naam
-                                    (<strong>@item.BestellingsRonde_Status</strong>)
-
-                                    @if (!string.IsNullOrEmpty(item.Opmerkingen))
-                                    {
-                                        <span> - @item.Opmerkingen</span>
-                                    }
-
-                                    <form asp-action="UpdateItemStatus" method="post">
-                                        <input type="hidden"
-                                               name="bestellingsRondeId"
-                                               value="@item.BestellingsRonde_ID" />
-
-                                        <select name="status">
-                                            <option value="besteld">besteld</option>
-                                            <option value="gereed">gereed</option>
-                                            <option value="in_bereiding">in_bereiding</option>
-                                        </select>
-
-                                       
-                                    </form>
-                                </li>
+                                <span> (@item.Opmerkingen)</span>
                             }
-                        </ul>
+
+                            <form asp-action="UpdateItemStatus" method="post">
+                                <input type="hidden" name="bestellingsRondeId" value="@item.BestellingsRonde_ID" />
+
+                                <select name="status">
+                                    <option value="besteld">besteld</option>
+                                    <option value="in_bereiding">in_bereiding</option>
+                                    <option value="gereed">gereed</option>
+                                </select>
+
+                                <button type="submit">Update</button>
+                            </form>
+                        </li>
                     }
-
-
-                </td>
-            </tr>
+                </ul>
+            }
         }
-    </tbody>
-</table>
+     
+
+        <hr />
+
+        
+        
+
+        @if (order.BarItems != null && order.BarItems.Any())
+        {
+            foreach (var group in order.BarItems)
+            {
+               
+
+                <ul>
+                    @foreach (var item in group.Items)
+                    {
+                        <li>
+                            @item.Aantal x @item.MenuItem.Naam
+                            - <strong>@item.BestellingsRonde_Status</strong>
+
+                            @if (!string.IsNullOrEmpty(item.Opmerkingen))
+                            {
+                                <span> (@item.Opmerkingen)</span>
+                            }
+
+                            <form asp-action="UpdateItemStatus" method="post">
+                                <input type="hidden" name="bestellingsRondeId" value="@item.BestellingsRonde_ID" />
+
+                                <select name="status">
+                                    <option value="besteld">besteld</option>
+                                    <option value="in_bereiding">in_bereiding</option>
+                                    <option value="gereed">gereed</option>
+                                </select>
+
+                                <button type="submit">Update</button>
+                            </form>
+                        </li>
+                    }
+                </ul>
+            }
+        }
+     
+
+    </div>
+}

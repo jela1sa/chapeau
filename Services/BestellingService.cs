@@ -7,42 +7,86 @@ namespace Chapeau.Services
     public class BestellingService : IBestellingService
     {
         private readonly IBestellingRepository _repository;
+        private readonly DBDummyRep _dummyRep;
 
-        public BestellingService(IBestellingRepository repository)
+
+        public BestellingService(IBestellingRepository repository, DBDummyRep dummyRep)
         {
             _repository = repository;
+            _dummyRep = dummyRep;
         }
 
+        
 
         public List<RunningOrderViewModel> GetRunningOrders(string type)
         {
-            var orders = type switch
-            {
-                "kitchen" => _repository.GetKitchenOrders(),
-                "bar" => _repository.GetBarOrders(),
-                _ => _repository.GetRunningOrders()
-            };
+            var orders = _dummyRep.GetDummyBestellingen();
 
+            
             foreach (var order in orders)
             {
                 order.Wachttijd =
                     (int)(DateTime.Now - order.Datum_Tijd).TotalMinutes;
             }
 
-            return orders.Select(b => new RunningOrderViewModel
+            var result = orders.Select(order =>
             {
-                Bestelling = b,
-                Categories = b.BestellingsRonde
-                    .GroupBy(x => x.MenuItem.Categorie)
-                    .Select(g => new CourseGroepViewModel
-                    {
-                        Naam = g.Key,
-                        Status = "besteld",
-                        Items = g.ToList()
-                    })
-                    .ToList()
+           
+                var kitchenItems = order.BestellingsRonde
+                    .Where(r =>
+                        r.MenuItem?.Categorie == "Voorgerecht" ||
+                        r.MenuItem?.Categorie == "Hoofdgerecht" ||
+                        r.MenuItem?.Categorie == "Nagerecht")
+                    .ToList();
+
+                
+                var barItems = order.BestellingsRonde
+                    .Where(r =>
+                        r.MenuItem?.Categorie == "Drank")
+                    .ToList();
+
+                return new RunningOrderViewModel
+                {
+                    Bestelling = order,
+
+                    KitchenItems = kitchenItems.Any()
+                        ? kitchenItems
+                            .GroupBy(x => x.MenuItem.Categorie)
+                            .Select(g => new CourseGroepViewModel
+                            {
+                                Naam = g.Key,
+                                Status = "besteld",
+                                Items = g.ToList()
+                            })
+                            .ToList()
+                        : new List<CourseGroepViewModel>(),
+
+                  
+                    BarItems = barItems.Any()
+                        ? barItems
+                            .GroupBy(x => x.MenuItem.Categorie)
+                            .Select(g => new CourseGroepViewModel
+                            {
+                                Naam = "Bar",
+                                Status = "besteld",
+                                Items = g.ToList()
+                            })
+                            .ToList()
+                        : new List<CourseGroepViewModel>()
+                };
             }).ToList();
+
+            
+
+            if (type == "kitchen")
+                return result.Where(r => r.KitchenItems.Any()).ToList();
+
+            if (type == "bar")
+                return result.Where(r => r.BarItems.Any()).ToList();
+
+            return result;
         }
+
 
         public void UpdateOrderStatus(int bestellingId, string status)
             => _repository.UpdateOrderStatus(bestellingId, status);
